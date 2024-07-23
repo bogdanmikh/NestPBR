@@ -10,6 +10,7 @@ public:
     void detach() override;
     void update(double deltaTime) override;
 private:
-    Shader* shader;
+    Shader* m_shaderRectangle;
+    CubeMap m_skyTexture;
 };
 
