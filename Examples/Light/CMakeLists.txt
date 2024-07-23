@@ -34,6 +34,3 @@ set_target_properties(Light
 # Dependencies - Nest
 target_link_libraries(Light Nest)
 target_include_directories(Light PRIVATE ${NEST_DIRECTORY}/include)
-
-# Dependencies - Rain
-target_link_libraries(Light Rain)

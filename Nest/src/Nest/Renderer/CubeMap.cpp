@@ -19,7 +19,7 @@ void CubeMap::create(std::array<std::string, 6> paths) {
         if (data) {
             glTexImage2D(
                 GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,
-                0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data
+                0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data
             );
         } else {
             LOG_ERROR("Failed to load CubeMap at path {}", paths[i]);
@@ -43,7 +43,7 @@ void CubeMap::destroy() {
 void CubeMap::bind(unsigned int slot) const {
     if (m_RendererID == -1)
         return;
-    glActiveTexture(m_RendererID + slot);
+    glActiveTexture(GL_TEXTURE0 + slot);
     glBindTexture(GL_TEXTURE_CUBE_MAP, m_RendererID);
 }
 

@@ -57,8 +57,10 @@ void Pebbles::update(double deltaTime) {
     m_shaderRectangle.setFloat("iTime", Application::getInstance()->getWindow()->getTime());
     m_shaderRectangle.setVec2("iMouse", Events::getCursorPos());
     m_shaderRectangle.setVec2("iResolution", Application::getInstance()->getWindow()->getSize());
-    m_skyTexture.bind(0);
-    m_shaderRectangle.setInt("iSky", 0);
+    m_pebblesTexture.bind(0);
+    m_shaderRectangle.setInt("texture1", 0);
+    m_skyTexture.bind(1);
+    m_shaderRectangle.setInt("iSky", 1);
     m_va.bind();
     m_indexBuffer.bind();
     Renderer::drawIndexed(m_indexBuffer.getSize());
