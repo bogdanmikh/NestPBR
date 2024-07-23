@@ -1,14 +1,9 @@
-#include <iostream>
 #include <filesystem>
 #include "stb_image.h"
 
 #include "Nest/Renderer/CubeMap.hpp"
 #include "Nest/Logger/Logger.hpp"
 #include "glad/glad.h"
-
-CubeMap::CubeMap(std::array<std::string, 6> paths) {
-    create(paths);
-}
 
 void CubeMap::create(std::array<std::string, 6> paths) {
     glGenTextures(1, &m_RendererID);
@@ -38,10 +33,11 @@ void CubeMap::create(std::array<std::string, 6> paths) {
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 }
 
-CubeMap::~CubeMap() {
-    if (m_RendererID == -1)
+void CubeMap::destroy() {
+    if (!m_RendererID)
         return;
     glDeleteTextures(1, &m_RendererID);
+    m_RendererID = 0;
 }
 
 void CubeMap::bind(unsigned int slot) const {

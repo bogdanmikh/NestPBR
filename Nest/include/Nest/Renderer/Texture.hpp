@@ -7,10 +7,8 @@ private:
     unsigned int m_RendererID;
 
 public:
-    Texture(const std::string &path);
-    Texture() : m_RendererID(-1) {}
     void create(const std::string &path);
-    ~Texture();
+    void destroy();
 
     void bind(unsigned int slot = 0) const;
     void unbind() const;

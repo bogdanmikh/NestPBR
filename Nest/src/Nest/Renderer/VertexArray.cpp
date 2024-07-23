@@ -1,4 +1,3 @@
-#include <iostream>
 #include "Nest/Renderer/VertexArray.hpp"
 
 VertexArray::VertexArray() {

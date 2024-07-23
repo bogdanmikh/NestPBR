@@ -3479,7 +3479,7 @@ namespace ImGui
     IMGUI_API void          SetActiveIdUsingAllKeyboardKeys();
     inline bool             IsActiveIdUsingNavDir(ImGuiDir dir)                         { ImGuiContext& g = *GImGui; return (g.ActiveIdUsingNavDirMask & (1 << dir)) != 0; }
 
-    // [EXPERIMENTAL] Low-Level: Key/Input Ownership
+    // [EXPERIMENTAL] Low-Pebbles: Key/Input Ownership
     // - The idea is that instead of "eating" a given input, we can link to an owner id.
     // - Ownership is most often claimed as a result of reacting to a press/down event (but occasionally may be claimed ahead).
     // - Input queries can then read input by specifying ImGuiKeyOwner_Any (== 0), ImGuiKeyOwner_NoOwner (== -1) or a custom ID.
@@ -3497,7 +3497,7 @@ namespace ImGui
     IMGUI_API bool          TestKeyOwner(ImGuiKey key, ImGuiID owner_id);               // Test that key is either not owned, either owned by 'owner_id'
     inline ImGuiKeyOwnerData* GetKeyOwnerData(ImGuiContext* ctx, ImGuiKey key)          { if (key & ImGuiMod_Mask_) key = ConvertSingleModFlagToKey(key); IM_ASSERT(IsNamedKey(key)); return &ctx->KeysOwnerData[key - ImGuiKey_NamedKey_BEGIN]; }
 
-    // [EXPERIMENTAL] High-Level: Input Access functions w/ support for Key/Input Ownership
+    // [EXPERIMENTAL] High-Pebbles: Input Access functions w/ support for Key/Input Ownership
     // - Important: legacy IsKeyPressed(ImGuiKey, bool repeat=true) _DEFAULTS_ to repeat, new IsKeyPressed() requires _EXPLICIT_ ImGuiInputFlags_Repeat flag.
     // - Expected to be later promoted to public API, the prototypes are designed to replace existing ones (since owner_id can default to Any == 0)
     // - Specifying a value for 'ImGuiID owner' will test that EITHER the key is NOT owned (UNLESS locked), EITHER the key is owned by 'owner'.

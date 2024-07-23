@@ -9,7 +9,6 @@
 #include "Nest/Renderer/VertexBufferLayout.hpp"
 #include "Nest/Renderer/Texture.hpp"
 #include "Nest/Renderer/CubeMap.hpp"
-#include "Nest/Renderer/Mesh.hpp"
 
 // Window
 #include "Nest/Window/Window.hpp"

@@ -2,11 +2,11 @@
 
 class IndexBuffer {
 private:
-    unsigned int m_RendererID;
-    unsigned int m_Size;
+    unsigned int m_RendererID = 0;
+    unsigned int m_Size = 0;
 public:
-    IndexBuffer(unsigned int *data, unsigned int count);
-    ~IndexBuffer();
+    void create(unsigned int *data, unsigned int count);
+    void destroy();
 
     void bind() const;
     void unbind() const;

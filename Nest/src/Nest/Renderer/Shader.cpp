@@ -8,7 +8,7 @@
 #include <sstream>
 #include <filesystem>
 
-Shader::Shader(const char *vertexPath, const char *fragmentPath, const char *geometryPath) {
+void Shader::create(const char *vertexPath, const char *fragmentPath, const char *geometryPath) {
     // 1. retrieve the vertex/fragment source code from filePath
     std::string vertexCode;
     std::string fragmentCode;
@@ -86,7 +86,7 @@ Shader::Shader(const char *vertexPath, const char *fragmentPath, const char *geo
     }
 }
 
-Shader::~Shader() {
+void Shader::destroy() {
     glDeleteProgram(m_RendererID);
 }
 

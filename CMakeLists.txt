@@ -18,7 +18,6 @@ add_subdirectory(Vendor/glm)
 add_subdirectory(Vendor/imgui)
 add_subdirectory(Vendor/spdlog)
 add_subdirectory(Vendor/stb_image)
-add_subdirectory(Vendor/Rain)
 
 add_subdirectory(Nest)
 add_subdirectory(Examples/Light)

@@ -13,9 +13,7 @@ file(GLOB_RECURSE SOURCES src/*.cpp)
 file(GLOB_RECURSE INCLUDE src/*.hpp include/*.hpp)
 
 # Nest target
-add_library(Nest STATIC "${SOURCES}" "${INCLUDE}"
-        ../Examples/Light/src/SkyComponent.cpp
-        ../Examples/Light/src/SkyComponent.hpp)
+add_library(Nest STATIC "${SOURCES}" "${INCLUDE}")
 
 target_include_directories(Nest PRIVATE ${PROJECT_SOURCE_DIR}/src)
 target_include_directories(Nest PUBLIC ${PROJECT_SOURCE_DIR}/include)

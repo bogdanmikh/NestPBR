@@ -1,14 +1,9 @@
-#include <iostream>
 #include <filesystem>
 #include "stb_image.h"
 
 #include "Nest/Renderer/Texture.hpp"
 #include "Nest/Logger/Logger.hpp"
 #include "glad/glad.h"
-
-Texture::Texture(const std::string &path) {
-    create(path);
-}
 
 void Texture::create(const std::string &path) {
     if (!std::filesystem::exists(path)) {
@@ -48,10 +43,11 @@ void Texture::create(const std::string &path) {
     stbi_image_free(data);
 }
 
-Texture::~Texture() {
-    if (m_RendererID == -1)
+void Texture::destroy() {
+    if (!m_RendererID)
         return;
     glDeleteTextures(1, &m_RendererID);
+    m_RendererID = 0;
 }
 
 void Texture::bind(unsigned int slot) const {
@@ -60,6 +56,7 @@ void Texture::bind(unsigned int slot) const {
     glActiveTexture(GL_TEXTURE0 + slot);
     glBindTexture(GL_TEXTURE_2D, m_RendererID);
 }
+
 void Texture::unbind() const {
     glBindTexture(GL_TEXTURE_2D, 0);
 }

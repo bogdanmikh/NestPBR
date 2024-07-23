@@ -1,10 +1,10 @@
 #include <Nest.hpp>
 
-#include "Level.hpp"
+#include "Pebbles.hpp"
 
 int main() {
     auto* application = Application::getInstance();
-    auto *layer = new Level();
+    auto *layer = new Pebbles();
     application->setLayer(layer);
     application->loop();
     layer->detach();
