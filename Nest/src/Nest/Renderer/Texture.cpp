@@ -1,10 +1,15 @@
 #include <iostream>
+#include <filesystem>
 #include "stb_image.h"
 
 #include "Nest/Renderer/Texture.hpp"
+#include "Nest/Logger/Logger.hpp"
 #include "glad/glad.h"
 
 Texture::Texture(const std::string &path) {
+    if (!std::filesystem::exists(path)) {
+        LOG_ERROR("File not exists {}", path);
+    }
     glGenTextures(1, &m_RendererID);
     int width, height, nrChannels;
     stbi_set_flip_vertically_on_load(true);
@@ -33,7 +38,7 @@ Texture::Texture(const std::string &path) {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 4);
     } else {
-        std::cerr << "Failed to load texture at path " << path << std::endl;
+        LOG_ERROR("Failed to load texture at path {}", path);
     }
     stbi_image_free(data);
 }
@@ -67,7 +72,7 @@ void Texture::create(const std::string &path) {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 4);
     } else {
-        std::cerr << "Failed to load texture at path " << path << std::endl;
+        LOG_ERROR("Failed to load texture at path {}", path);
     }
     stbi_image_free(data);
 }

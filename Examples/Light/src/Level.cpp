@@ -29,7 +29,7 @@ void Level::start() {
     };
     mesh = new Mesh(vertices, 4, ind, 6);
     mesh->addTexture("Textures/noise.jpeg");
-//    mesh->addTexture("Textures/pebbles.png");
+    mesh->addTexture("Textures/pebbles.png");
 }
 
 void Level::detach() {

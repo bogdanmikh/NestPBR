@@ -26,7 +26,8 @@ Application::Application()
 
     ImGui_Init(window->getNativeHandle());
     Renderer::init();
-    Renderer::setClearColor(.235f, .235f, .235f, 1.0f);
+//    Renderer::setClearColor(.235f, .235f, .235f, 1.0f);
+    Renderer::setClearColor( 1.f, 1.f, 1.f, 1.f);
 }
 
 Application::~Application() {
