@@ -7,6 +7,7 @@
 
 void CubeMap::create(std::array<std::string, 6> paths) {
     glGenTextures(1, &m_RendererID);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, m_RendererID);
     stbi_set_flip_vertically_on_load(true);
     unsigned char *data;
     int width, height, nrChannels;
@@ -41,7 +42,7 @@ void CubeMap::destroy() {
 }
 
 void CubeMap::bind(unsigned int slot) const {
-    if (m_RendererID == -1)
+    if (!m_RendererID)
         return;
     glActiveTexture(GL_TEXTURE0 + slot);
     glBindTexture(GL_TEXTURE_CUBE_MAP, m_RendererID);

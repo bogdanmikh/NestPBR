@@ -22,12 +22,11 @@ Application::Application()
         , timeMillis() {
     Logger::init();
     window = new Window;
-    window->init("VivoEditor", 800, 600);
+    window->init("Light", 800, 600, false);
 
     ImGui_Init(window->getNativeHandle());
     Renderer::init();
-//    Renderer::setClearColor(.235f, .235f, .235f, 1.0f);
-    Renderer::setClearColor( 1.f, 1.f, 1.f, 1.f);
+    Renderer::setClearColor(.235f, .235f, .235f, 1.0f);
 }
 
 Application::~Application() {
@@ -55,6 +54,10 @@ void Application::loop() {
 
         double deltaTime = deltaTimeMillis / 1000.0;
         deltaTimeMillis = 0;
+
+        if (Events::isJustKeyPressed(Key::ESCAPE)) {
+            close();
+        }
 
         Renderer::clear();
 

@@ -34,7 +34,7 @@ void Window::init(const char *name, uint32_t resolutionX, uint32_t resolutionY, 
     this->handle = window;
     Events::init(window);
 
-    std::string message = {"       |-- \\\n"
+    std::string message = {"\n       |-- \\\n"
                            "       |     \\\n"
                            "       |     /\n"
                            "       |-- /\n"

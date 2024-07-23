@@ -4,7 +4,7 @@
 
 class CubeMap {
 private:
-    unsigned int m_RendererID;
+    unsigned int m_RendererID = 0;
 public:
     void create(std::array<std::string, 6> paths);
     void destroy();

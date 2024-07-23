@@ -51,7 +51,7 @@ void Texture::destroy() {
 }
 
 void Texture::bind(unsigned int slot) const {
-    if (m_RendererID == -1)
+    if (!m_RendererID)
         return;
     glActiveTexture(GL_TEXTURE0 + slot);
     glBindTexture(GL_TEXTURE_2D, m_RendererID);

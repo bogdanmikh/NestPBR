@@ -4,7 +4,7 @@
 
 class Texture {
 private:
-    unsigned int m_RendererID;
+    unsigned int m_RendererID = 0;
 
 public:
     void create(const std::string &path);
