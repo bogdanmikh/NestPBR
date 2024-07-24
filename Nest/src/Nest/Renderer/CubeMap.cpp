@@ -8,7 +8,7 @@
 void CubeMap::create(std::array<std::string, 6> paths) {
     glGenTextures(1, &m_RendererID);
     glBindTexture(GL_TEXTURE_CUBE_MAP, m_RendererID);
-    stbi_set_flip_vertically_on_load(true);
+//    stbi_set_flip_vertically_on_load(true);
     unsigned char *data;
     int width, height, nrChannels;
     for (int i = 0; i < 6; ++i) {

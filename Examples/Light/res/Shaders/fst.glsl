@@ -12,11 +12,21 @@ uniform samplerCube iSky;
 
 out vec4 fragColor;
 
+vec2 flip(vec2 r) {
+    return vec2(-r.x, -r.y);
+}
+
+vec2 flip(vec3 r) {
+    return vec2(-r.x, -r.y);
+}
+
 void main() {
     vec2 st = gl_FragCoord.xy / iResolution;
-    float pebbleHeight = texture(texture1, TexCoord).r;
-    vec3 normal = vec3(pebbleHeight, 1.0 - pebbleHeight, 0.0);
-    vec3 reflectedDirection = reflect(normalize(vec3(TexCoord, 1.0)), normal);
+    float pebbleHeight = texture(texture1, TexCoord).r * 0.3;
+    vec3 normal = vec3(pebbleHeight, 1.0 - pebbleHeight, pebbleHeight);
+    vec3 reflectedDirection = vec3(TexCoord - 0.7, sin(iTime) * 0.5 + 1.);
+    reflectedDirection = vec3(flip(reflectedDirection), reflectedDirection.z);
+
     vec2 m = gl_FragCoord.xy / iMouse;
     vec4 skyColor = texture(iSky, reflectedDirection);
     vec4 color = vec4(pebbleHeight, pebbleHeight, pebbleHeight, 1.0);
