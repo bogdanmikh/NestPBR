@@ -22,13 +22,15 @@ vec2 flip(vec3 r) {
 
 void main() {
     vec2 st = gl_FragCoord.xy / iResolution;
-    float pebbleHeight = texture(texture1, TexCoord).r * 0.3;
+    float pebbleHeight = texture(texture1, TexCoord).r;
     vec3 normal = vec3(pebbleHeight, 1.0 - pebbleHeight, pebbleHeight);
-    vec3 reflectedDirection = vec3(TexCoord - 0.7, sin(iTime) * 0.5 + 1.);
+    vec2 uv = TexCoord;
+    uv += pebbleHeight * 0.1;
+    vec3 reflectedDirection = vec3(uv - 0.7, sin(iTime) * 0.5 + 1.);
     reflectedDirection = vec3(flip(reflectedDirection), reflectedDirection.z);
 
     vec2 m = gl_FragCoord.xy / iMouse;
     vec4 skyColor = texture(iSky, reflectedDirection);
     vec4 color = vec4(pebbleHeight, pebbleHeight, pebbleHeight, 1.0);
-    fragColor = mix(color, skyColor, 0.5);
+    fragColor = mix(color, skyColor, 0.8);
 }
