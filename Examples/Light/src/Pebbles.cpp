@@ -23,9 +23,9 @@ void Pebbles::update(double deltaTime) {
         Renderer::setRenderBufferSize(currSize.x, currSize.y);
     }
     m_cameraMove.update(deltaTime);
+    m_skyComponent.draw();
     m_cube.rotateX(2);
     m_cube.rotateY(2);
     m_cube.draw();
-    m_skyComponent.draw();
     Renderer::checkForErrors();
 }

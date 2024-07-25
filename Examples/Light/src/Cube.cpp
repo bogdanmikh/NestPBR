@@ -70,12 +70,14 @@ void Cube::rotateZ(float degrees) {
 }
 
 void Cube::draw() {
-    Application::getInstance()->getCamera()->setShader(m_shaderCube);
+    auto camera = Application::getInstance()->getCamera();
     m_shaderCube->use();
     m_shaderCube->setFloat("iTime", Application::getInstance()->getWindow()->getTime());
     m_shaderCube->setVec2("iMouse", Events::getCursorPos());
     m_shaderCube->setVec2("iResolution", Application::getInstance()->getWindow()->getSize());
     m_shaderCube->setMat4("u_model", m_model);
+    m_shaderCube->setMat4("u_view", camera->getViewMatrix());
+    m_shaderCube->setMat4("u_projection", camera->getProjectionMatrix());
     m_texture.bind(0);
     m_shaderCube->setInt("iTexture", 0);
     m_mesh.draw();

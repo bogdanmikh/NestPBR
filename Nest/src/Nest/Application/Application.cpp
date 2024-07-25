@@ -71,6 +71,7 @@ void Application::loop() {
         Renderer::clear();
 
         ImGui_NewFrame();
+        camera->update();
         if (currentLayer) {
             currentLayer->update(deltaTime);
         }

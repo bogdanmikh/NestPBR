@@ -43,13 +43,16 @@ void SkyComponent::init() {
     m_cubeMap.create(skyTextureAsset);
 }
 void SkyComponent::draw() {
-    Application::getInstance()->getCamera()->setShader(m_shaderCubeMap);
+    auto camera = Application::getInstance()->getCamera();
     m_shaderCubeMap->use();
     m_shaderCubeMap->setFloat("iTime", Application::getInstance()->getWindow()->getTime());
     m_shaderCubeMap->setVec2("iMouse", Events::getCursorPos());
     m_shaderCubeMap->setVec2("iResolution", Application::getInstance()->getWindow()->getSize());
-    m_shaderCubeMap->setMat4("u_model", glm::mat4(1));
+    m_shaderCubeMap->setMat4("u_view", camera->getSkyViewMatrix());
+    m_shaderCubeMap->setMat4("u_projection", camera->getProjectionMatrix());
     m_cubeMap.bind(0);
     m_shaderCubeMap->setInt("iSky", 0);
+    glDisable(GL_DEPTH_TEST);
     m_mesh.draw();
+    glEnable(GL_DEPTH_TEST);
 }
