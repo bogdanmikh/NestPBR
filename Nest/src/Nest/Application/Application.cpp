@@ -5,27 +5,29 @@
 #include "Nest/Renderer/Renderer.hpp"
 #include "Nest/Window/Events.hpp"
 #include "Nest/ImGui/ImGui.hpp"
+#include "imgui.h"
 
 Application *Application::s_instance = new Application;
 std::shared_ptr<spdlog::logger> Logger::s_logger = nullptr;
 
 uint64_t getMillis() {
     auto now = std::chrono::duration_cast<std::chrono::milliseconds>(
-            std::chrono::system_clock::now().time_since_epoch()
+        std::chrono::system_clock::now().time_since_epoch()
     );
     return now.count();
 }
 
 Application::Application()
-        : currentLayer(nullptr)
-        , fps()
-        , timeMillis() {
+    : currentLayer(nullptr)
+    , fps()
+    , timeMillis()
+    , deltaTimeMillis(0) {
     Logger::init();
     window = new Window;
     window->init("Light", 800, 600, false);
 
     camera = new Camera;
-    camera->setFieldOfView(glm::radians(120.f));
+    camera->setFieldOfView(glm::radians(60.f));
     camera->setRotation(0.f, 0.f, 0.f);
 
     ImGui_Init(window->getNativeHandle());
@@ -73,6 +75,14 @@ void Application::loop() {
         if (currentLayer) {
             currentLayer->update(deltaTime);
         }
+        ImGui::Begin("Stats");
+        ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.0f, 1.0f, 0.0f, 1.0f));
+        ImGui::Text("FPS: %d", fps);
+        ImGui::PopStyleColor();
+        ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.8f, 0.0f, 0.5f, 1.0f));
+        ImGui::Text("X: %f, Y: %f, Z: %f", camera->getPosition().x, camera->getPosition().y, camera->getPosition().z);
+        ImGui::PopStyleColor();
+        ImGui::End();
         ImGui_EndFrame();
 
         Events::resetDropPaths();

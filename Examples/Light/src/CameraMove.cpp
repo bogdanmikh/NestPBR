@@ -12,11 +12,12 @@ void CameraMove::init() {
 
 void CameraMove::update(double deltaTime) {
     if (Events::isKeyPressed(Key::LEFT_SHIFT)) {
-        cameraSpeed = 20.f;
+        cameraSpeed = 30.f;
     } else {
-        cameraSpeed = 5.f;
+        cameraSpeed = 20.f;
     }
 
+    LOG_INFO("Speed: {}, Delta: {}", cameraSpeed, deltaTime);
     if (Events::isKeyPressed(Key::W)) {
         camera->translateLocal(0., 0., cameraSpeed * deltaTime);
     }
@@ -44,9 +45,6 @@ void CameraMove::update(double deltaTime) {
         cursorLock = Events::isCursorLocked();
         resetMouse = true;
     }
-    ImGui::Begin("Stats");
-    ImGui::Text("X: %f, Y: %f, Z: %f", camera->getPosition().x, camera->getPosition().y, camera->getPosition().z);
-    ImGui::End();
 
     if (!Events::isCursorLocked()) return;
 

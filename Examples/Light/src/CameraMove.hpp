@@ -9,7 +9,7 @@ public:
 private:
     bool cursorLock;
     glm::vec2 lastPos;
-    float cameraSpeed = 0.f;
+    float cameraSpeed = 5.f;
 
     Window* window;
     Camera* camera;

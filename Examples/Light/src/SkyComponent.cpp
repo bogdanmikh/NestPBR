@@ -2,8 +2,6 @@
 
 SkyComponent::~SkyComponent() {
     delete m_shaderCubeMap;
-    delete[] m_indices;
-    delete[] m_vertices;
 }
 
 void SkyComponent::init() {
@@ -11,7 +9,7 @@ void SkyComponent::init() {
     m_shaderCubeMap->create("Shaders/vstCM.glsl", "Shaders/fstCM.glsl");
     Application::getInstance()->getCamera()->setShader(m_shaderCubeMap);
 
-    m_vertices = new SkyVertex[24]{
+    SkyVertex vertices[24] = {
         // Front
         SkyVertex(-1.0f, -1.0f, 1.0f), // 0
         SkyVertex(1.0f, -1.0f, 1.0f),  // 1
@@ -44,17 +42,19 @@ void SkyComponent::init() {
         SkyVertex(1.0f, -1.0f, 1.0f)   // 21
     };
 
-    m_indices = new uint32_t[36]{
-        0,  1,  2,  2,  3,  0,  // Front
-        4,  5,  6,  6,  7,  4,  // Back
-        8,  9,  10, 10, 11, 8,  // Top
-        12, 13, 14, 14, 15, 12, // Bottom
-        16, 17, 18, 18, 19, 16, // Left
-        20, 21, 22, 22, 23, 20  // Right
-    };
+    // clang-format off
+        uint32_t indices[36] = {
+            0, 1, 2, 2, 3, 0,       // Front
+            4, 5, 6, 6, 7, 4,       // Back
+            8, 9, 10, 10, 11, 8,    // Top
+            12, 13, 14, 14, 15, 12, // Bottom
+            16, 17, 18, 18, 19, 16, // Left
+            20, 21, 22, 22, 23, 20  // Right
+        };
+
     VertexBufferLayout layout;
     layout.pushVec3F();
-    m_mesh.create(layout, (float *)m_vertices, 24, m_indices, 36);
+    m_mesh.create(layout, (float *)vertices, 24 * 3, indices, 36);
     std::array<std::string, 6> skyTextureAsset = {
         "Textures/skybox/px.png",
         "Textures/skybox/nx.png",
