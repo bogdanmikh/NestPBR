@@ -47,9 +47,7 @@ void Shader::create(const char *vertexPath, const char *fragmentPath, const char
             gShaderFile.close();
             geometryCode = gShaderStream.str();
         }
-    } catch (std::ifstream::failure &e) {
-        LOG_ERROR("ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ");
-    }
+    } catch (std::ifstream::failure &e) { LOG_ERROR("ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ"); }
     const char *vShaderCode = vertexCode.c_str();
     const char *fShaderCode = fragmentCode.c_str();
     // 2. compile shaders

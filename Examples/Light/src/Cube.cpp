@@ -5,35 +5,54 @@ Cube::~Cube() {
     delete m_shaderCube;
 }
 
-void Cube::init(const glm::vec3 &position, const std::filesystem::path& pathToTexture) {
+void Cube::init(const glm::vec3 &position, const std::filesystem::path &pathToTexture) {
     m_model = glm::mat4(1);
     m_shaderCube = new Shader;
     m_shaderCube->create("Shaders/vstCube.glsl", "Shaders/fstCube.glsl");
-
-    MyVertex vertices[8] = {
-        MyVertex(-1.0f, -1.0f, -1.0f), // 0
-        MyVertex(1.0f, -1.0f, -1.0f),  // 1
-        MyVertex(-1.0f, 1.0f, -1.0f),  // 2
-        MyVertex(1.0f, 1.0f, -1.0f),   // 3
-
-        MyVertex(-1.0f, -1.0f, 1.0f), // 4
-        MyVertex(1.0f, -1.0f, 1.0f),  // 5
-        MyVertex(-1.0f, 1.0f, 1.0f),  // 6
-        MyVertex(1.0f, 1.0f, 1.0f),   // 7
+    Vertex vertices[24] = {
+        // Front
+        Vertex(-1.0f, -1.0f, 1.0f, 0.0f, 1.0f, 1.0f), // 0
+        Vertex(1.0f, -1.0f, 1.0f, 1.0f, 1.0f, 1.0f),  // 1
+        Vertex(1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f),   // 2
+        Vertex(-1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f),  // 3
+        // Back
+        Vertex(-1.0f, -1.0f, -1.0f, 0.0f, 1.0f, 1.0f), // 4
+        Vertex(-1.0f, 1.0f, -1.0f, 1.0f, 1.0f, 1.0f),  // 5
+        Vertex(1.0f, 1.0f, -1.0f, 1.0f, 0.0f, 1.0f),   // 6
+        Vertex(1.0f, -1.0f, -1.0f, 0.0f, 0.0f, 1.0f),  // 7
+        // Top
+        Vertex(-1.0f, 1.0f, -1.0f, 0.0f, 1.0f, 1.0f), // 8
+        Vertex(-1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f),  // 11
+        Vertex(1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f),   // 10
+        Vertex(1.0f, 1.0f, -1.0f, 0.0f, 0.0f, 1.0f),  // 9
+        // Bottom
+        Vertex(-1.0f, -1.0f, -1.0f, 0.0f, 1.0f, 1.0f), // 12
+        Vertex(1.0f, -1.0f, -1.0f, 1.0f, 1.0f, 1.0f),  // 13
+        Vertex(1.0f, -1.0f, 1.0f, 1.0f, 0.0f, 1.0f),   // 14
+        Vertex(-1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 1.0f),  // 15
+        // Left
+        Vertex(-1.0f, -1.0f, -1.0f, 0.0f, 1.0f, 1.0f), // 16
+        Vertex(-1.0f, -1.0f, 1.0f, 1.0f, 1.0f, 1.0f),  // 17
+        Vertex(-1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f),   // 18
+        Vertex(-1.0f, 1.0f, -1.0f, 0.0f, 0.0f, 1.0f),  // 19
+        // Right
+        Vertex(1.0f, -1.0f, -1.0f, 0.0f, 1.0f, 1.0f), // 20
+        Vertex(1.0f, 1.0f, -1.0f, 1.0f, 1.0f, 1.0f),  // 23
+        Vertex(1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f),   // 22
+        Vertex(1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 1.0f)   // 21
     };
-
+    // clang-format off
     uint32_t indices[36] = {
-        4,  6,  7,  7,  5,  4,  // Front
-        0,  2,  3,  3,  1,  0,  // Back
-        2,  3,  7,  7,  6,  2,  // Top
-        0,  1,  5,  5,  4,  0,  // Bottom
-        0, 2, 6, 6, 4, 0, // Left
-        1, 5, 7, 7, 3, 1  // Right
+       0, 1, 2, 2, 3, 0,       // Front
+       4, 5, 6, 6, 7, 4,       // Back
+       8, 9, 10, 10, 11, 8,    // Top
+       12, 13, 14, 14, 15, 12, // Bottom
+       16, 17, 18, 18, 19, 16, // Left
+       20, 21, 22, 22, 23, 20  // Right
     };
+    // clang-format on
 
-    VertexBufferLayout layout;
-    layout.pushVec3F();
-    m_mesh.create(layout, (float *)vertices, 8 * 3, indices, 36);
+    m_mesh.create(vertices, 24 * 5, indices, 36);
     m_texture.create(pathToTexture);
     m_model = glm::translate(m_model, position);
 }

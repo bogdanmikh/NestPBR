@@ -3,7 +3,7 @@
 #include "Pebbles.hpp"
 
 int main() {
-    auto* application = Application::getInstance();
+    auto *application = Application::getInstance();
     auto *layer = new Pebbles();
     application->setLayer(layer);
     application->loop();

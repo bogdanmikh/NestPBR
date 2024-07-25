@@ -5,6 +5,7 @@
 class Texture {
 private:
     unsigned int m_RendererID = 0;
+
 public:
     Texture() = default;
     Texture(const std::string &path);

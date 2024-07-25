@@ -7,15 +7,15 @@
 
 #include <Nest.hpp>
 
-class Pebbles final: public Layer {
+class Pebbles final : public Layer {
 public:
     void start() override;
     void detach() override;
     void update(double deltaTime) override;
+
 private:
     glm::vec2 m_lastViewportSize;
     SkyComponent m_skyComponent;
     Cube m_cube;
     CameraMove m_cameraMove;
 };
-

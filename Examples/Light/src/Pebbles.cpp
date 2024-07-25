@@ -10,7 +10,7 @@ namespace fs = std::filesystem;
 void Pebbles::start() {
     m_lastViewportSize = Application::getInstance()->getWindow()->getSize();
     m_skyComponent.init();
-    m_cube.init(glm::vec3(0., 0., 0.), "");
+    m_cube.init(glm::vec3(0., 0., 0.), "Textures/Dubil.png");
     m_cameraMove.init();
 }
 

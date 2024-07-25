@@ -17,6 +17,7 @@ public:
     ~SkyComponent();
     void init();
     void draw();
+
 private:
     Mesh m_mesh;
     CubeMap m_cubeMap;

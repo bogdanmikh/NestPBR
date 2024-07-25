@@ -13,7 +13,8 @@ void Window::init(const char *name, uint32_t resolutionX, uint32_t resolutionY, 
         return;
     }
 
-    if (fullScreen) glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
+    if (fullScreen)
+        glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
 #if defined(__APPLE__) || defined(__MACH__)
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -28,7 +29,7 @@ void Window::init(const char *name, uint32_t resolutionX, uint32_t resolutionY, 
     }
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1);
-    if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
         LOG_ERROR("Failed to initialize OpenGL context");
     }
     this->handle = window;
@@ -58,15 +59,15 @@ Window::~Window() {
 }
 
 bool Window::shouldClose() {
-    return glfwWindowShouldClose((GLFWwindow*) handle);
+    return glfwWindowShouldClose((GLFWwindow *)handle);
 }
 
 glm::vec2 Window::getSize() {
     int x, y;
     float xscale, yscale;
-    glfwGetWindowContentScale((GLFWwindow*) handle, &xscale, &yscale);
-    glfwGetWindowSize((GLFWwindow*) handle,  &x, &y);
-    return { x * xscale, y * yscale };
+    glfwGetWindowContentScale((GLFWwindow *)handle, &xscale, &yscale);
+    glfwGetWindowSize((GLFWwindow *)handle, &x, &y);
+    return {x * xscale, y * yscale};
 }
 
 double Window::getTime() {
@@ -74,13 +75,13 @@ double Window::getTime() {
 }
 
 void Window::swapBuffers() {
-    glfwSwapBuffers((GLFWwindow*) handle);
+    glfwSwapBuffers((GLFWwindow *)handle);
 }
 
 void Window::setShouldClose() {
-    glfwSetWindowShouldClose((GLFWwindow*) handle, true);
+    glfwSetWindowShouldClose((GLFWwindow *)handle, true);
 }
 
-void* Window::getNativeHandle() {
+void *Window::getNativeHandle() {
     return handle;
 }

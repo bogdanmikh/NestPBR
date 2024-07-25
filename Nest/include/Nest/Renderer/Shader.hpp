@@ -9,7 +9,8 @@ class Shader {
 public:
     Shader() = default;
     Shader(const char *vertexPath, const char *fragmentPath, const char *geometryPath = nullptr);
-    void create(const char *vertexPath, const char *fragmentPath, const char *geometryPath = nullptr);
+    void
+    create(const char *vertexPath, const char *fragmentPath, const char *geometryPath = nullptr);
     void destroy();
     void use();
     void setBool(const std::string &name, bool value);

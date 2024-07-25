@@ -10,8 +10,8 @@ public:
 
     void setFieldOfView(float radians);
     void updateAspectRatio(float aspect);
-    void setShader(Shader* shader);
-    Shader* getShader();
+    void setShader(Shader *shader);
+    Shader *getShader();
     void rotate(float x, float y, float z);
     void setRotation(float x, float y, float z);
     void translate(float x, float y, float z);
@@ -31,7 +31,7 @@ private:
     glm::vec3 front;
     glm::vec3 right;
     glm::vec3 up;
-    Shader* shader;
+    Shader *shader;
     float fieldOfViewRadians;
     float aspect;
 };

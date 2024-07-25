@@ -9,7 +9,7 @@ Camera::Camera()
     , aspect(1.f)
     , rotation(0.f)
     , position(0.f)
-    , front(0.f) 
+    , front(0.f)
     , right(0.f)
     , up(0.f) {
     updateVectors();
@@ -39,8 +39,7 @@ void Camera::setShader(Shader *shader) {
     updateViewMatrix();
 }
 
-
-Shader* Camera::getShader() {
+Shader *Camera::getShader() {
     if (this->shader == nullptr) {
         printf("SHADER::NOT_INIT\n");
         return nullptr;
@@ -106,9 +105,12 @@ void Camera::setPosition(float x, float y, float z) {
 
 void Camera::updateVectors() {
     glm::mat4 rotationMatrix = glm::mat4(1.f);
-    rotationMatrix = glm::rotate(rotationMatrix, glm::radians(rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
-    rotationMatrix = glm::rotate(rotationMatrix, glm::radians(rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
-    rotationMatrix = glm::rotate(rotationMatrix, glm::radians(rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
+    rotationMatrix =
+        glm::rotate(rotationMatrix, glm::radians(rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
+    rotationMatrix =
+        glm::rotate(rotationMatrix, glm::radians(rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
+    rotationMatrix =
+        glm::rotate(rotationMatrix, glm::radians(rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
     rotationMatrix = glm::transpose(rotationMatrix);
     front = rotationMatrix * glm::vec4(0.f, 0.f, -1.f, 1.f);
     right = rotationMatrix * glm::vec4(1.f, 0.f, 0.f, 1.f);

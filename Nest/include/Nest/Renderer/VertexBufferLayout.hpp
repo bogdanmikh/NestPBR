@@ -12,17 +12,20 @@ struct Vertex {
     // light
     float light;
 
-    Vertex() : Position(0, 0, 0), TexCoords(0, 0), light(0){};
+    Vertex()
+        : Position(0, 0, 0)
+        , TexCoords(0, 0)
+        , light(0) {};
 
     Vertex(glm::vec3 aPosition, glm::vec2 aTexCoords, float light = 1.f)
         : Position(aPosition)
         , TexCoords(aTexCoords)
-        , light(light){};
+        , light(light) {};
 
     Vertex(float x, float y, float z, float aTexCoordX, float aTexCoordY, float light = 1.f)
         : Position(x, y, z)
         , TexCoords(aTexCoordX, aTexCoordY)
-        , light(light){};
+        , light(light) {};
 };
 
 struct VertexBufferElement {
@@ -52,7 +55,7 @@ private:
 public:
     VertexBufferLayout()
         : m_Stride(0) {}
-    ~VertexBufferLayout(){};
+    ~VertexBufferLayout() {};
 
     void pushFloat(unsigned int count = 1) {
         VertexBufferElement element = {GL_FLOAT, count, GL_FALSE};

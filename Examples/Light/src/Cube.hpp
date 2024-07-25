@@ -16,11 +16,12 @@ struct MyVertex {
 class Cube {
 public:
     ~Cube();
-    void init(const glm::vec3& position, const std::filesystem::path& pathToTexture);
+    void init(const glm::vec3 &position, const std::filesystem::path &pathToTexture);
     void rotateX(float degrees);
     void rotateY(float degrees);
     void rotateZ(float degrees);
     void draw();
+
 private:
     glm::mat4 m_model;
     Shader *m_shaderCube;

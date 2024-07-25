@@ -12,7 +12,7 @@ void VertexBuffer::create(const void *data, unsigned int size) {
 }
 
 void VertexBuffer::destroy() {
-    if(m_RendererID) {
+    if (m_RendererID) {
         glDeleteBuffers(1, &m_RendererID);
     }
     m_RendererID = 0;

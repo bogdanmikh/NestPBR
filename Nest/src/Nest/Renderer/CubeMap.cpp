@@ -9,10 +9,10 @@ CubeMap::CubeMap(const std::array<std::string, 6> &paths) {
     create(paths);
 }
 
-void CubeMap::create(const std::array<std::string, 6>& paths) {
+void CubeMap::create(const std::array<std::string, 6> &paths) {
     glGenTextures(1, &m_RendererID);
     glBindTexture(GL_TEXTURE_CUBE_MAP, m_RendererID);
-//    stbi_set_flip_vertically_on_load(true);
+    //    stbi_set_flip_vertically_on_load(true);
     unsigned char *data;
     int width, height, nrChannels;
     for (int i = 0; i < 6; ++i) {
@@ -24,7 +24,14 @@ void CubeMap::create(const std::array<std::string, 6>& paths) {
         if (data) {
             glTexImage2D(
                 GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,
-                0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data
+                0,
+                GL_RGBA,
+                width,
+                height,
+                0,
+                GL_RGBA,
+                GL_UNSIGNED_BYTE,
+                data
             );
         } else {
             LOG_ERROR("Failed to load CubeMap at path {}", paths[i]);

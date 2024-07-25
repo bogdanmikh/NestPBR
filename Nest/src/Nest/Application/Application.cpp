@@ -79,7 +79,12 @@ void Application::loop() {
         ImGui::Text("FPS: %d", fps);
         ImGui::PopStyleColor();
         ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.8f, 0.0f, 0.5f, 1.0f));
-        ImGui::Text("X: %f, Y: %f, Z: %f", camera->getPosition().x, camera->getPosition().y, camera->getPosition().z);
+        ImGui::Text(
+            "X: %f, Y: %f, Z: %f",
+            camera->getPosition().x,
+            camera->getPosition().y,
+            camera->getPosition().z
+        );
         ImGui::PopStyleColor();
         ImGui::End();
         ImGui_EndFrame();

@@ -13,7 +13,7 @@ void IndexBuffer::create(unsigned int *data, unsigned int count) {
 }
 
 void IndexBuffer::destroy() {
-    if(m_RendererID) {
+    if (m_RendererID) {
         glDeleteBuffers(1, &m_RendererID);
     }
     m_RendererID = 0;
