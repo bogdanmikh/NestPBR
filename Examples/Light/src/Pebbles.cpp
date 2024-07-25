@@ -10,10 +10,8 @@ namespace fs = std::filesystem;
 void Pebbles::start() {
     m_lastViewportSize = Application::getInstance()->getWindow()->getSize();
     m_skyComponent.init();
-    m_cube.init(glm::vec3(0., 0., 0));
+    m_cube.init(glm::vec3(0., 0., 0.), "");
     m_cameraMove.init();
-    m_cube.rotateX(2);
-    m_cube.rotateY(2);
 }
 
 void Pebbles::detach() {}

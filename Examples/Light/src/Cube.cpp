@@ -5,7 +5,7 @@ Cube::~Cube() {
     delete m_shaderCube;
 }
 
-void Cube::init(const glm::vec3 &position) {
+void Cube::init(const glm::vec3 &position, const std::filesystem::path& pathToTexture) {
     m_model = glm::mat4(1);
     m_shaderCube = new Shader;
     m_shaderCube->create("Shaders/vstCube.glsl", "Shaders/fstCube.glsl");
@@ -34,17 +34,8 @@ void Cube::init(const glm::vec3 &position) {
     VertexBufferLayout layout;
     layout.pushVec3F();
     m_mesh.create(layout, (float *)vertices, 8 * 3, indices, 36);
-
-    std::array<std::string, 6> cubeTextureAsset = {
-        "Textures/Dubil.png",
-        "Textures/Dubil.png",
-        "Textures/Dubil.png",
-        "Textures/Dubil.png",
-        "Textures/Dubil.png",
-        "Textures/Dubil.png"
-    };
-    m_cubeMap.create(cubeTextureAsset);
-    //    m_model = glm::translate(m_model, position);
+    m_texture.create(pathToTexture);
+    m_model = glm::translate(m_model, position);
 }
 
 void Cube::rotateX(float degrees) {
@@ -66,7 +57,7 @@ void Cube::draw() {
     m_shaderCube->setVec2("iMouse", Events::getCursorPos());
     m_shaderCube->setVec2("iResolution", Application::getInstance()->getWindow()->getSize());
     m_shaderCube->setMat4("u_model", m_model);
-    m_cubeMap.bind(0);
-    m_shaderCube->setInt("iCube", 0);
+    m_texture.bind(0);
+    m_shaderCube->setInt("iTexture", 0);
     m_mesh.draw();
 }

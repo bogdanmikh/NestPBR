@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <filesystem>
 #include <glm/glm.hpp>
 
 #include <Nest.hpp>
@@ -15,7 +16,7 @@ struct MyVertex {
 class Cube {
 public:
     ~Cube();
-    void init(const glm::vec3& position);
+    void init(const glm::vec3& position, const std::filesystem::path& pathToTexture);
     void rotateX(float degrees);
     void rotateY(float degrees);
     void rotateZ(float degrees);
@@ -24,5 +25,5 @@ private:
     glm::mat4 m_model;
     Shader *m_shaderCube;
     Mesh m_mesh;
-    CubeMap m_cubeMap;
+    Texture m_texture;
 };
