@@ -56,7 +56,7 @@ void Cube::init(const glm::vec3 &position) {
     layout.pushVec3F();
     m_mesh.create(layout, (float *)vertices, 24 * 3, indices, 36);
     
-    std::array<std::string, 6> skyTextureAsset = {
+    std::array<std::string, 6> cubeTextureAsset = {
         "Textures/Dubil.png",
         "Textures/Dubil.png",
         "Textures/Dubil.png",
@@ -64,7 +64,8 @@ void Cube::init(const glm::vec3 &position) {
         "Textures/Dubil.png",
         "Textures/Dubil.png"
     };
-    m_cubeMap.create(skyTextureAsset);
+    m_cubeMap.create(cubeTextureAsset);
+//    m_model = glm::translate(m_model, position);
 }
 
 void Cube::rotateX(float degrees) {

@@ -8,8 +8,8 @@ uniform mat4 u_projection;
 out vec3 TexCoord;
 
 void main() {
-    vec4 pos = u_model * u_projection * u_view * vec4(aPos, 1.0);
-    pos = vec4(aPos * 0.8, 1.0);
-    gl_Position = u_model * vec4(aPos * 0.3, 1.0);
+    vec4 pos = u_projection * u_view * u_model * vec4(aPos, 1.0);
+    gl_Position = pos;
+//    gl_Position = u_model * vec4(aPos * 0.2, 1.0);
     TexCoord = aPos;
 }
