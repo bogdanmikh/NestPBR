@@ -13,6 +13,5 @@ out vec4 fragColor;
 
 void main() {
     vec2 st = gl_FragCoord.xy / iResolution;
-
-    fragColor = texture(skybox, TexCoords);
+    fragColor = texture(iSky, TexCoord);
 }

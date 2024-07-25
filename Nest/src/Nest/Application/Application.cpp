@@ -24,6 +24,10 @@ Application::Application()
     window = new Window;
     window->init("Light", 800, 600, false);
 
+    camera = new Camera;
+    camera->setFieldOfView(glm::radians(120.f));
+    camera->setRotation(0.f, 0.f, 0.f);
+
     ImGui_Init(window->getNativeHandle());
     Renderer::init();
     Renderer::setClearColor(.235f, .235f, .235f, 1.0f);
@@ -31,6 +35,7 @@ Application::Application()
 
 Application::~Application() {
     ImGui_Shutdown();
+    delete camera;
     delete window;
 }
 
@@ -57,6 +62,9 @@ void Application::loop() {
 
         if (Events::isJustKeyPressed(Key::ESCAPE)) {
             close();
+        }
+        if (Events::isJustKeyPressed(Key::TAB)) {
+            Events::toggleCursorLock();
         }
 
         Renderer::clear();

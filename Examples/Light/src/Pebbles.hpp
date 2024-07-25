@@ -2,6 +2,7 @@
 
 #include <Nest.hpp>
 #include "SkyComponent.hpp"
+#include "CameraMove.hpp"
 
 class Pebbles final: public Layer {
 public:
@@ -12,5 +13,6 @@ private:
     glm::vec2 m_lastViewportSize;
     CubeMap m_skyTexture;
     SkyComponent m_skyComponent;
+    CameraMove m_cameraMove;
 };
 

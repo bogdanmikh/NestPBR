@@ -2,6 +2,7 @@
 
 #include "Nest/Window/Window.hpp"
 #include "Nest/NestObjects/Layer.hpp"
+#include "Nest/NestObjects/Camera.hpp"
 
 class Application final {
 public:
@@ -10,8 +11,12 @@ public:
         return s_instance;
     }
 
-    inline Window *getWindow() {
+    inline Window *getWindow() const {
         return window;
+    }
+
+    inline Camera *getCamera() const {
+        return camera;
     }
 
     inline int getMaxFps() const {
@@ -39,6 +44,7 @@ private:
 
     Window *window;
     Layer *currentLayer;
+    Camera *camera;
 
     int fps;
     int maximumFps = 60;
