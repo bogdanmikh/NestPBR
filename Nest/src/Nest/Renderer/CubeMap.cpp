@@ -5,7 +5,11 @@
 #include "Nest/Logger/Logger.hpp"
 #include "glad/glad.h"
 
-void CubeMap::create(std::array<std::string, 6> paths) {
+CubeMap::CubeMap(const std::array<std::string, 6> &paths) {
+    create(paths);
+}
+
+void CubeMap::create(const std::array<std::string, 6>& paths) {
     glGenTextures(1, &m_RendererID);
     glBindTexture(GL_TEXTURE_CUBE_MAP, m_RendererID);
 //    stbi_set_flip_vertically_on_load(true);

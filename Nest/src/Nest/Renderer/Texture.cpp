@@ -5,6 +5,10 @@
 #include "Nest/Logger/Logger.hpp"
 #include "glad/glad.h"
 
+Texture::Texture(const std::string &path) {
+    create(path);
+}
+
 void Texture::create(const std::string &path) {
     if (!std::filesystem::exists(path)) {
         LOG_ERROR("File not exists {}", path);
@@ -56,7 +60,6 @@ void Texture::bind(unsigned int slot) const {
     glActiveTexture(GL_TEXTURE0 + slot);
     glBindTexture(GL_TEXTURE_2D, m_RendererID);
 }
-
 void Texture::unbind() const {
     glBindTexture(GL_TEXTURE_2D, 0);
 }

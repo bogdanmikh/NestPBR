@@ -6,7 +6,9 @@ class CubeMap {
 private:
     unsigned int m_RendererID = 0;
 public:
-    void create(std::array<std::string, 6> paths);
+    CubeMap() = default;
+    CubeMap(const std::array<std::string, 6> &paths);
+    void create(const std::array<std::string, 6> &paths);
     void destroy();
 
     void bind(unsigned int slot = 0) const;
