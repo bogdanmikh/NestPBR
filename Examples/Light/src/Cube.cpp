@@ -10,52 +10,31 @@ void Cube::init(const glm::vec3 &position) {
     m_shaderCube = new Shader;
     m_shaderCube->create("Shaders/vstCube.glsl", "Shaders/fstCube.glsl");
 
-    MyVertex vertices[24] = {
-        // Front
-        MyVertex(-1.0f, -1.0f, 1.0f), // 0
-        MyVertex(1.0f, -1.0f, 1.0f),  // 1
-        MyVertex(1.0f, 1.0f, 1.0f),   // 2
-        MyVertex(-1.0f, 1.0f, 1.0f),  // 3
-        // Back
-        MyVertex(-1.0f, -1.0f, -1.0f), // 4
-        MyVertex(-1.0f, 1.0f, -1.0f),  // 5
-        MyVertex(1.0f, 1.0f, -1.0f),   // 6
-        MyVertex(1.0f, -1.0f, -1.0f),  // 7
-        // Top
-        MyVertex(-1.0f, 1.0f, -1.0f), // 8
-        MyVertex(-1.0f, 1.0f, 1.0f),  // 11
-        MyVertex(1.0f, 1.0f, 1.0f),   // 10
-        MyVertex(1.0f, 1.0f, -1.0f),  // 9
-        // Bottom
-        MyVertex(-1.0f, -1.0f, -1.0f), // 12
-        MyVertex(1.0f, -1.0f, -1.0f),  // 13
-        MyVertex(1.0f, -1.0f, 1.0f),   // 14
-        MyVertex(-1.0f, -1.0f, 1.0f),  // 15
-        // Left
-        MyVertex(-1.0f, -1.0f, -1.0f), // 16
-        MyVertex(-1.0f, -1.0f, 1.0f),  // 17
-        MyVertex(-1.0f, 1.0f, 1.0f),   // 18
-        MyVertex(-1.0f, 1.0f, -1.0f),  // 19
-        // Right
-        MyVertex(1.0f, -1.0f, -1.0f), // 20
-        MyVertex(1.0f, 1.0f, -1.0f),  // 23
-        MyVertex(1.0f, 1.0f, 1.0f),   // 22
-        MyVertex(1.0f, -1.0f, 1.0f)   // 21
+    MyVertex vertices[8] = {
+        MyVertex(-1.0f, -1.0f, -1.0f), // 0
+        MyVertex(1.0f, -1.0f, -1.0f),  // 1
+        MyVertex(-1.0f, 1.0f, -1.0f),  // 2
+        MyVertex(1.0f, 1.0f, -1.0f),   // 3
+
+        MyVertex(-1.0f, -1.0f, 1.0f), // 4
+        MyVertex(1.0f, -1.0f, 1.0f),  // 5
+        MyVertex(-1.0f, 1.0f, 1.0f),  // 6
+        MyVertex(1.0f, 1.0f, 1.0f),   // 7
     };
-    
+
     uint32_t indices[36] = {
-        0, 1, 2, 2, 3, 0,       // Front
-        4, 5, 6, 6, 7, 4,       // Back
-        8, 9, 10, 10, 11, 8,    // Top
-        12, 13, 14, 14, 15, 12, // Bottom
-        16, 17, 18, 18, 19, 16, // Left
-        20, 21, 22, 22, 23, 20  // Right
+        4,  6,  7,  7,  5,  4,  // Front
+        0,  2,  3,  3,  1,  0,  // Back
+        2,  3,  7,  7,  6,  2,  // Top
+        0,  1,  5,  5,  4,  0,  // Bottom
+        0, 2, 6, 6, 4, 0, // Left
+        1, 5, 7, 7, 3, 1  // Right
     };
-    
+
     VertexBufferLayout layout;
     layout.pushVec3F();
-    m_mesh.create(layout, (float *)vertices, 24 * 3, indices, 36);
-    
+    m_mesh.create(layout, (float *)vertices, 8 * 3, indices, 36);
+
     std::array<std::string, 6> cubeTextureAsset = {
         "Textures/Dubil.png",
         "Textures/Dubil.png",
@@ -65,7 +44,7 @@ void Cube::init(const glm::vec3 &position) {
         "Textures/Dubil.png"
     };
     m_cubeMap.create(cubeTextureAsset);
-//    m_model = glm::translate(m_model, position);
+    //    m_model = glm::translate(m_model, position);
 }
 
 void Cube::rotateX(float degrees) {
