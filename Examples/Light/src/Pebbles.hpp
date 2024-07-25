@@ -1,8 +1,11 @@
 #pragma once
 
-#include <Nest.hpp>
 #include "SkyComponent.hpp"
+#include "SkyComponent.hpp"
+#include "Cube.hpp"
 #include "CameraMove.hpp"
+
+#include <Nest.hpp>
 
 class Pebbles final: public Layer {
 public:
@@ -11,8 +14,8 @@ public:
     void update(double deltaTime) override;
 private:
     glm::vec2 m_lastViewportSize;
-    CubeMap m_skyTexture;
     SkyComponent m_skyComponent;
+    Cube m_cube;
     CameraMove m_cameraMove;
 };
 

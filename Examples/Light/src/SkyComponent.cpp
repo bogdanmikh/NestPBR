@@ -7,7 +7,6 @@ SkyComponent::~SkyComponent() {
 void SkyComponent::init() {
     m_shaderCubeMap = new Shader;
     m_shaderCubeMap->create("Shaders/vstCM.glsl", "Shaders/fstCM.glsl");
-    Application::getInstance()->getCamera()->setShader(m_shaderCubeMap);
 
     SkyVertex vertices[24] = {
         // Front
@@ -66,6 +65,7 @@ void SkyComponent::init() {
     m_cubeMap.create(skyTextureAsset);
 }
 void SkyComponent::draw() {
+    Application::getInstance()->getCamera()->setShader(m_shaderCubeMap);
     m_shaderCubeMap->use();
     m_shaderCubeMap->setFloat("iTime", Application::getInstance()->getWindow()->getTime());
     m_shaderCubeMap->setVec2("iMouse", Events::getCursorPos());

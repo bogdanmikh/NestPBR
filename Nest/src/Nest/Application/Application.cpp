@@ -20,15 +20,14 @@ uint64_t getMillis() {
 Application::Application()
     : currentLayer(nullptr)
     , fps()
-    , timeMillis()
-    , deltaTimeMillis(0) {
+    , timeMillis() {
     Logger::init();
     window = new Window;
     window->init("Light", 800, 600, false);
 
     camera = new Camera;
     camera->setFieldOfView(glm::radians(60.f));
-    camera->setRotation(0.f, 0.f, 0.f);
+    camera->setRotation(0.f, 50.f, 0.f);
 
     ImGui_Init(window->getNativeHandle());
     Renderer::init();
