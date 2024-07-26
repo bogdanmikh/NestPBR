@@ -32,7 +32,8 @@ void NestPBR::start() {
     cubeCreateInfo.pathToVertexShader = "Shaders/vstCube.glsl";
     cubeCreateInfo.pathToFragmentShader = "Shaders/fstCube.glsl";
     cubeCreateInfo.useTexture = true;
-    cubeCreateInfo.pathToTexture = "Textures/Dubil.png";
+//    cubeCreateInfo.pathToTexture = "Textures/Dubil.png";
+    cubeCreateInfo.pathToTexture = "Textures/rust.jpg";
     cubeCreateInfo.useCubeMap = true;
     cubeCreateInfo.skyTextureAsset = skyTextureAssetNotBlur;
     cubeCreateInfo.nameTexture = "iTexture";
@@ -40,17 +41,25 @@ void NestPBR::start() {
     m_cube.init(cubeCreateInfo);
 
     CreateInfo sphereCreateInfo;
-    sphereCreateInfo.position = glm::vec3(4., 0., 0.);
+    sphereCreateInfo.position = glm::vec3(3., 0., 0.);
     sphereCreateInfo.pathToVertexShader = "Shaders/vstSphere.glsl";
     sphereCreateInfo.pathToFragmentShader = "Shaders/fstSphere.glsl";
-    sphereCreateInfo.useTexture = false;
-//    sphereCreateInfo.pathToTexture = "Textures/Dubil.png";
+    sphereCreateInfo.useTexture = true;
+    sphereCreateInfo.pathToTexture = "Textures/Sphere.jpg";
     sphereCreateInfo.useCubeMap = true;
     sphereCreateInfo.skyTextureAsset = skyTextureAssetNotBlur;
-//    cubeCreateInfo.nameTexture = "iTexture";
+    sphereCreateInfo.nameTexture = "iTexture";
     sphereCreateInfo.nameCubeMap = "iSky";
+    m_sphere1.init(sphereCreateInfo);
 
-    m_sphere.init(sphereCreateInfo);
+    sphereCreateInfo.position = glm::vec3(6., 0., 0.);
+    sphereCreateInfo.pathToTexture = "Textures/rust.jpg";
+    m_sphere2.init(sphereCreateInfo);
+
+    sphereCreateInfo.position = glm::vec3(8., 0., 0.);
+    sphereCreateInfo.pathToTexture = "Textures/scratch.jpg";
+    m_sphere3.init(sphereCreateInfo);
+
     m_cameraMove.init();
 }
 
@@ -67,6 +76,11 @@ void NestPBR::update(double deltaTime) {
     m_cube.rotateZ(0.5);
     m_cube.rotateY(0.5);
     m_cube.draw(deltaTime);
-    m_sphere.draw(deltaTime);
+
+    // spheres
+    Sphere::drawSettings();
+    m_sphere1.draw(deltaTime);
+    m_sphere2.draw(deltaTime);
+    m_sphere3.draw(deltaTime);
     Renderer::checkForErrors();
 }

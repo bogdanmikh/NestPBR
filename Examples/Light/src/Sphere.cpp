@@ -1,9 +1,13 @@
 #include "Sphere.hpp"
 
+#include <imgui.h>
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/string_cast.hpp>
 
+Settings Sphere::m_settings;
+
 void Sphere::init(const CreateInfo &createInfo) {
+    m_settings.countSpheres++;
     m_createInfo = createInfo;
     m_sphereShader.create(m_createInfo.pathToVertexShader.c_str(), m_createInfo.pathToFragmentShader.c_str());
     m_model = glm::mat4(1);
@@ -83,9 +87,17 @@ void Sphere::init(const CreateInfo &createInfo) {
 //    }
 }
 
+void Sphere::drawSettings() {
+    ImGui::Begin("Settings Sphere");
+    ImGui::Text("Count sphere: %d", m_settings.countSpheres);
+    ImGui::SliderFloat("Value of metalic", &m_settings.metallic, 0.0, 1.0);
+    ImGui::End();
+}
+
 void Sphere::draw(double deltaTime) {
     auto camera = Application::getInstance()->getCamera();
     m_sphereShader.use();
+
     m_sphereShader.setFloat("iTime", Application::getInstance()->getWindow()->getTime());
     m_sphereShader.setVec2("iMouse", Events::getCursorPos());
     m_sphereShader.setVec2("iResolution", Application::getInstance()->getWindow()->getSize());
@@ -93,6 +105,7 @@ void Sphere::draw(double deltaTime) {
     m_sphereShader.setMat4("u_view", camera->getViewMatrix());
     m_sphereShader.setMat4("u_projection", camera->getProjectionMatrix());
     m_sphereShader.setVec3("cameraPos", camera->getPosition());
+    m_sphereShader.setFloat("metallic", m_settings.metallic);
     if (m_createInfo.useTexture) {
         m_texture.bind(0);
         m_sphereShader.setInt(m_createInfo.nameTexture, 0);

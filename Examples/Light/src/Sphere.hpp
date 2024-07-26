@@ -37,12 +37,18 @@ struct SphereVertex {
         , Normal(aNormalX, aNormalY, aNormalZ) {};
 };
 
+struct Settings {
+    float metallic = 0.0;
+    int countSpheres = 0;
+};
+
 class Sphere : public Figure {
 public:
     void init(const CreateInfo &createInfo) override;
     void draw(double deltaTime) override;
-
+    static void drawSettings();
 private:
+    static Settings m_settings;
     CreateInfo m_createInfo;
     CubeMap m_cubeMap;
     Texture m_texture;
