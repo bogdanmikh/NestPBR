@@ -8,6 +8,7 @@ uniform vec2 iMouse;
 //uniform vec3 iColor;
 
 uniform sampler2D iTexture;
+uniform samplerCube iSky;
 
 out vec4 fragColor;
 

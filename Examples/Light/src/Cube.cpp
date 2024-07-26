@@ -69,6 +69,10 @@ void Cube::rotateZ(float degrees) {
     m_model = glm::rotate(m_model, glm::radians(degrees), glm::vec3(0.0f, 0.0f, 1.0f));
 }
 
+void Cube::addCubeMap(CubeMap cubeMap) {
+    m_cubemap = cubeMap;
+}
+
 void Cube::draw() {
     auto camera = Application::getInstance()->getCamera();
     m_shaderCube->use();
@@ -80,5 +84,7 @@ void Cube::draw() {
     m_shaderCube->setMat4("u_projection", camera->getProjectionMatrix());
     m_texture.bind(0);
     m_shaderCube->setInt("iTexture", 0);
+    m_cubemap.bind(1);
+    m_shaderCube->setInt("iSky", 1);
     m_mesh.draw();
 }

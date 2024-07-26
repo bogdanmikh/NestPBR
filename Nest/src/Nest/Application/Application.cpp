@@ -73,6 +73,7 @@ void Application::loop() {
         ImGui_NewFrame();
         camera->update();
         if (currentLayer) {
+            deltaTime = std::min(deltaTime, 10.);
             currentLayer->update(deltaTime);
         }
         ImGui::Begin("Stats");

@@ -16,6 +16,7 @@ class SkyComponent {
 public:
     ~SkyComponent();
     void init();
+    CubeMap getCubeMap();
     void draw();
 
 private:

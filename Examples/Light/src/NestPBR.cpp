@@ -1,4 +1,4 @@
-#include "Pebbles.hpp"
+#include "NestPBR.hpp"
 #include <imgui.h>
 #include <iostream>
 #include <filesystem>
@@ -7,16 +7,17 @@
 
 namespace fs = std::filesystem;
 
-void Pebbles::start() {
+void NestPBR::start() {
     m_lastViewportSize = Application::getInstance()->getWindow()->getSize();
     m_skyComponent.init();
     m_cube.init(glm::vec3(0., 0., 0.), "Textures/Dubil.png");
+    m_cube.addCubeMap(m_skyComponent.getCubeMap());
     m_cameraMove.init();
 }
 
-void Pebbles::detach() {}
+void NestPBR::detach() {}
 
-void Pebbles::update(double deltaTime) {
+void NestPBR::update(double deltaTime) {
     glm::vec2 currSize = Application::getInstance()->getWindow()->getSize();
     if (m_lastViewportSize != currSize) {
         m_lastViewportSize = currSize;

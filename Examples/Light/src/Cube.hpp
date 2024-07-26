@@ -20,9 +20,11 @@ public:
     void rotateX(float degrees);
     void rotateY(float degrees);
     void rotateZ(float degrees);
+    void addCubeMap(CubeMap cubeMap);
     void draw();
 
 private:
+    CubeMap m_cubemap;
     glm::mat4 m_model;
     Shader *m_shaderCube;
     Mesh m_mesh;

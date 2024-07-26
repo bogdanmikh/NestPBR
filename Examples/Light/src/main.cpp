@@ -1,10 +1,10 @@
 #include <Nest.hpp>
 
-#include "Pebbles.hpp"
+#include "NestPBR.hpp"
 
 int main() {
     auto *application = Application::getInstance();
-    auto *layer = new Pebbles();
+    auto *layer = new NestPBR();
     application->setLayer(layer);
     application->loop();
     layer->detach();

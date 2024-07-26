@@ -7,7 +7,7 @@
 
 #include <Nest.hpp>
 
-class Pebbles final : public Layer {
+class NestPBR final : public Layer {
 public:
     void start() override;
     void detach() override;

@@ -6,7 +6,7 @@ SkyComponent::~SkyComponent() {
 
 void SkyComponent::init() {
     m_shaderCubeMap = new Shader;
-    m_shaderCubeMap->create("Shaders/vstCM.glsl", "Shaders/fstCM.glsl");
+    m_shaderCubeMap->create("Shaders/vstSky.glsl", "Shaders/fstSky.glsl");
 
     SkyVertex vertices[8] = {
         SkyVertex(-1.0f, -1.0f, -1.0f), // 0
@@ -42,6 +42,11 @@ void SkyComponent::init() {
     };
     m_cubeMap.create(skyTextureAsset);
 }
+
+CubeMap SkyComponent::getCubeMap() {
+    return m_cubeMap;
+}
+
 void SkyComponent::draw() {
     auto camera = Application::getInstance()->getCamera();
     m_shaderCubeMap->use();
