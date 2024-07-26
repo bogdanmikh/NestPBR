@@ -9,9 +9,24 @@ namespace fs = std::filesystem;
 
 void NestPBR::start() {
     m_lastViewportSize = Application::getInstance()->getWindow()->getSize();
-    m_skyComponent.init();
-    m_cube.init(glm::vec3(0., 0., 0.), "Textures/Dubil.png");
-    m_cube.addCubeMap(m_skyComponent.getCubeMap());
+    std::array<std::string, 6> skyTextureAssetNotBlur = {
+        "Textures/skybox/notblur/px.png",
+        "Textures/skybox/notblur/nx.png",
+        "Textures/skybox/notblur/py.png",
+        "Textures/skybox/notblur/ny.png",
+        "Textures/skybox/notblur/pz.png",
+        "Textures/skybox/notblur/nz.png"
+    };
+    std::array<std::string, 6> skyTextureAssetBlur = {
+        "Textures/skybox/blur/px.png",
+        "Textures/skybox/blur/nx.png",
+        "Textures/skybox/blur/py.png",
+        "Textures/skybox/blur/ny.png",
+        "Textures/skybox/blur/pz.png",
+        "Textures/skybox/blur/nz.png"
+    };
+    m_skyComponent.init(skyTextureAssetNotBlur);
+    m_cube.init(glm::vec3(0., 0., 0.), "Textures/Dubil.png", skyTextureAssetNotBlur);
     m_cameraMove.init();
 }
 
@@ -25,8 +40,8 @@ void NestPBR::update(double deltaTime) {
     }
     m_cameraMove.update(deltaTime);
     m_skyComponent.draw();
-    m_cube.rotateX(2);
-    m_cube.rotateY(2);
+    m_cube.rotateZ(0.5);
+    //    m_cube.rotateY(0.5);
     m_cube.draw();
     Renderer::checkForErrors();
 }

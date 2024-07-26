@@ -5,10 +5,16 @@ Cube::~Cube() {
     delete m_shaderCube;
 }
 
-void Cube::init(const glm::vec3 &position, const std::filesystem::path &pathToTexture) {
+void Cube::init(
+    const glm::vec3 &position,
+    const std::filesystem::path &pathToTexture,
+    const std::array<std::string, 6> &skyTextureAsset
+) {
     m_model = glm::mat4(1);
     m_shaderCube = new Shader;
     m_shaderCube->create("Shaders/vstCube.glsl", "Shaders/fstCube.glsl");
+
+    // clang-format off
     VertexCube vertices[24] = {
         // Front face
         VertexCube(1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f),  // 0
@@ -46,8 +52,7 @@ void Cube::init(const glm::vec3 &position, const std::filesystem::path &pathToTe
         VertexCube(1.0f, -1.0f, 1.0f, 1.0f, 0.0f, 0.0f, -1.0f, 0.0f),   // 22
         VertexCube(-1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 0.0f, -1.0f, 0.0f)   // 23
     };
-    
-    // clang-format off
+
     uint32_t indices[36] = {
        0, 1, 2, 2, 3, 0,       // Front
        4, 5, 6, 6, 7, 4,       // Back
@@ -62,8 +67,10 @@ void Cube::init(const glm::vec3 &position, const std::filesystem::path &pathToTe
     layout.pushVec3F();
     layout.pushVec2F();
     layout.pushVec3F();
-    m_mesh.create(layout, (float*)vertices, 24 * 8, indices, 36);
+    m_mesh.create(layout, (float *)vertices, 24 * 8, indices, 36);
     m_texture.create(pathToTexture);
+    m_cubeMap.create(skyTextureAsset);
+
     m_model = glm::translate(m_model, position);
 }
 
@@ -79,10 +86,6 @@ void Cube::rotateZ(float degrees) {
     m_model = glm::rotate(m_model, glm::radians(degrees), glm::vec3(0.0f, 0.0f, 1.0f));
 }
 
-void Cube::addCubeMap(CubeMap cubeMap) {
-    m_cubemap = cubeMap;
-}
-
 void Cube::draw() {
     auto camera = Application::getInstance()->getCamera();
     m_shaderCube->use();
@@ -95,7 +98,7 @@ void Cube::draw() {
     m_shaderCube->setVec3("cameraPos", camera->getPosition());
     m_texture.bind(0);
     m_shaderCube->setInt("iTexture", 0);
-    m_cubemap.bind(1);
+    m_cubeMap.bind(1);
     m_shaderCube->setInt("iSky", 1);
     m_mesh.draw();
 }

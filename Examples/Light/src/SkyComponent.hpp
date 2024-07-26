@@ -15,7 +15,7 @@ struct SkyVertex {
 class SkyComponent {
 public:
     ~SkyComponent();
-    void init();
+    void init(const std::array<std::string, 6> &skyTextureAsset);
     CubeMap getCubeMap();
     void draw();
 

@@ -4,7 +4,7 @@ SkyComponent::~SkyComponent() {
     delete m_shaderCubeMap;
 }
 
-void SkyComponent::init() {
+void SkyComponent::init(const std::array<std::string, 6> &skyTextureAsset) {
     m_shaderCubeMap = new Shader;
     m_shaderCubeMap->create("Shaders/vstSky.glsl", "Shaders/fstSky.glsl");
 
@@ -32,14 +32,6 @@ void SkyComponent::init() {
     VertexBufferLayout layout;
     layout.pushVec3F();
     m_mesh.create(layout, (float *)vertices, 8 * 3, indices, 36);
-    std::array<std::string, 6> skyTextureAsset = {
-        "Textures/skybox/px.png",
-        "Textures/skybox/nx.png",
-        "Textures/skybox/py.png",
-        "Textures/skybox/ny.png",
-        "Textures/skybox/pz.png",
-        "Textures/skybox/nz.png"
-    };
     m_cubeMap.create(skyTextureAsset);
 }
 

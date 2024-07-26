@@ -24,8 +24,16 @@ struct VertexCube {
         , TexCoords(aTexCoord)
         , Normal(aNormal) {};
 
-    VertexCube(float x, float y, float z, float aTexCoordX, float aTexCoordY,
-               float aNormalX, float aNormalY, float aNormalZ)
+    VertexCube(
+        float x,
+        float y,
+        float z,
+        float aTexCoordX,
+        float aTexCoordY,
+        float aNormalX,
+        float aNormalY,
+        float aNormalZ
+    )
         : Position(x, y, z)
         , TexCoords(aTexCoordX, aTexCoordY)
         , Normal(aNormalX, aNormalY, aNormalZ) {};
@@ -34,15 +42,18 @@ struct VertexCube {
 class Cube {
 public:
     ~Cube();
-    void init(const glm::vec3 &position, const std::filesystem::path &pathToTexture);
+    void init(
+        const glm::vec3 &position,
+        const std::filesystem::path &pathToTexture,
+        const std::array<std::string, 6> &skyTextureAsset
+    );
     void rotateX(float degrees);
     void rotateY(float degrees);
     void rotateZ(float degrees);
-    void addCubeMap(CubeMap cubeMap);
     void draw();
 
 private:
-    CubeMap m_cubemap;
+    CubeMap m_cubeMap;
     glm::mat4 m_model;
     Shader *m_shaderCube;
     Mesh m_mesh;

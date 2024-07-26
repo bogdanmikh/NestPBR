@@ -15,7 +15,7 @@ void main() {
     vec4 pos = u_projection * u_view * u_model * vec4(aPos, 1.0);
     gl_Position = pos;
 //    gl_Position = u_model * vec4(aPos * 0.2, 1.0);
+    TexCoord = aTexCoord;
     Normal = mat3(transpose(inverse(u_model))) * aNormal;
     Position = vec3(u_model * vec4(aPos, 1.0));
-    TexCoord = aTexCoord;
 }
