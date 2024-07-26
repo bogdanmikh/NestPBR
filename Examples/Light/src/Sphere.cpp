@@ -3,11 +3,11 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/string_cast.hpp>
 
-#ifdef SPHERE1
-void Sphere::init(glm::vec3 position) {
-    m_sphereShader.create("Shaders/vstSphere.glsl", "Shaders/fstSphere.glsl");
+void Sphere::init(const CreateInfo &createInfo) {
+    m_createInfo = createInfo;
+    m_sphereShader.create(m_createInfo.pathToVertexShader.c_str(), m_createInfo.pathToFragmentShader.c_str());
     m_model = glm::mat4(1);
-    m_model = glm::translate(m_model, position);
+    m_model = glm::translate(m_model, m_createInfo.position);
     std::vector<SphereVertex> vertices;
     std::vector<uint32_t> indices;
     int sectorCount = 36, stackCount = 18;
@@ -71,59 +71,19 @@ void Sphere::init(glm::vec3 position) {
         indices.data(),
         indices.size()
     );
+    if (m_createInfo.useTexture) {
+        m_texture.create(m_createInfo.pathToTexture);
+    }
+    if (m_createInfo.useCubeMap) {
+        m_cubeMap.create(m_createInfo.skyTextureAsset);
+    }
     std::ostringstream message;
 //    for (int i = 0; i < ; ++i) {
 //
 //    }
 }
-#else
 
-void Sphere::init() {
-    m_sphereShader.create("Shaders/vstSphere.glsl", "Shaders/fstSphere.glsl");
-    m_model = glm::mat4(1);
-
-    m_lats = 40;
-    m_longs = 40;
-
-    std::vector<SphereVertex> vertices;
-    std::vector<uint32_t> indices;
-    int indicator = 0;
-    for (int i = 0; i <= m_lats; i++) {
-        double lat0 = glm::pi<double>() * (-0.5 + (double)(i - 1) / m_lats);
-        double z0 = sin(lat0);
-        double zr0 = cos(lat0);
-
-        double lat1 = glm::pi<double>() * (-0.5 + (double)i / m_lats);
-        double z1 = sin(lat1);
-        double zr1 = cos(lat1);
-
-        for (int j = 0; j <= m_longs; j++) {
-            double lng = 2 * glm::pi<double>() * (double)(j - 1) / m_longs;
-            double x = cos(lng);
-            double y = sin(lng);
-
-            vertices.emplace_back(x * zr0, y * zr0, z0);
-            indices.push_back(indicator);
-            indicator++;
-
-            vertices.emplace_back(x * zr1, y * zr1, z1);
-            indices.push_back(indicator);
-            indicator++;
-        }
-    }
-    VertexBufferLayout layout;
-    layout.pushVec3F();
-    m_mesh.create(
-        layout,
-        (float *)vertices.data(),
-        vertices.size() * sizeof(SphereVertex),
-        indices.data(),
-        indices.size()
-    );
-}
-#endif
-
-void Sphere::draw() {
+void Sphere::draw(double deltaTime) {
     auto camera = Application::getInstance()->getCamera();
     m_sphereShader.use();
     m_sphereShader.setFloat("iTime", Application::getInstance()->getWindow()->getTime());
@@ -133,5 +93,13 @@ void Sphere::draw() {
     m_sphereShader.setMat4("u_view", camera->getViewMatrix());
     m_sphereShader.setMat4("u_projection", camera->getProjectionMatrix());
     m_sphereShader.setVec3("cameraPos", camera->getPosition());
+    if (m_createInfo.useTexture) {
+        m_texture.bind(0);
+        m_sphereShader.setInt(m_createInfo.nameTexture, 0);
+    }
+    if (m_createInfo.useCubeMap) {
+        m_cubeMap.bind(1);
+        m_sphereShader.setInt(m_createInfo.nameCubeMap, 1);
+    }
     m_mesh.draw();
 }

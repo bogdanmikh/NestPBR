@@ -1,13 +1,11 @@
 #include "Cube.hpp"
 #include "glm/ext/matrix_transform.hpp"
 
-void Cube::init(
-    const glm::vec3 &position,
-    const std::filesystem::path &pathToTexture,
-    const std::array<std::string, 6> &skyTextureAsset
-) {
+void Cube::init(const CreateInfo& createInfo) {
+    m_createInfo = createInfo;
     m_model = glm::mat4(1);
-    m_shaderCube.create("Shaders/vstCube.glsl", "Shaders/fstCube.glsl");
+    m_model = glm::translate(m_model, m_createInfo.position);
+    m_shaderCube.create(createInfo.pathToVertexShader.c_str(), createInfo.pathToFragmentShader.c_str());
 
     // clang-format off
     VertexCube vertices[24] = {
@@ -63,10 +61,12 @@ void Cube::init(
     layout.pushVec2F();
     layout.pushVec3F();
     m_mesh.create(layout, (float *)vertices, 24 * 8, indices, 36);
-    m_texture.create(pathToTexture);
-    m_cubeMap.create(skyTextureAsset);
-
-    m_model = glm::translate(m_model, position);
+    if (m_createInfo.useTexture) {
+        m_texture.create(m_createInfo.pathToTexture);
+    }
+    if (m_createInfo.useCubeMap) {
+        m_cubeMap.create(m_createInfo.skyTextureAsset);
+    }
 }
 
 void Cube::rotateX(float degrees) {
@@ -81,7 +81,7 @@ void Cube::rotateZ(float degrees) {
     m_model = glm::rotate(m_model, glm::radians(degrees), glm::vec3(0.0f, 0.0f, 1.0f));
 }
 
-void Cube::draw() {
+void Cube::draw(double deltaTime) {
     auto camera = Application::getInstance()->getCamera();
     m_shaderCube.use();
     m_shaderCube.setFloat("iTime", Application::getInstance()->getWindow()->getTime());
@@ -91,9 +91,13 @@ void Cube::draw() {
     m_shaderCube.setMat4("u_view", camera->getViewMatrix());
     m_shaderCube.setMat4("u_projection", camera->getProjectionMatrix());
     m_shaderCube.setVec3("cameraPos", camera->getPosition());
-    m_texture.bind(0);
-    m_shaderCube.setInt("iTexture", 0);
-    m_cubeMap.bind(1);
-    m_shaderCube.setInt("iSky", 1);
+    if (m_createInfo.useTexture) {
+        m_texture.bind(0);
+        m_shaderCube.setInt(m_createInfo.nameTexture, 0);
+    }
+    if (m_createInfo.useCubeMap) {
+        m_cubeMap.bind(1);
+        m_shaderCube.setInt(m_createInfo.nameCubeMap, 1);
+    }
     m_mesh.draw();
 }

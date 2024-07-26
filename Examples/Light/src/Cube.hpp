@@ -2,9 +2,9 @@
 
 #include <cstdint>
 #include <filesystem>
-#include <glm/glm.hpp>
 
 #include <Nest.hpp>
+#include "Figure.hpp"
 
 struct VertexCube {
     // position
@@ -39,22 +39,19 @@ struct VertexCube {
         , Normal(aNormalX, aNormalY, aNormalZ) {};
 };
 
-class Cube {
+class Cube : public Figure {
 public:
-    void init(
-        const glm::vec3 &position,
-        const std::filesystem::path &pathToTexture,
-        const std::array<std::string, 6> &skyTextureAsset
-    );
+    void init(const CreateInfo &createInfo) override;
+    void draw(double deltaTime) override;
     void rotateX(float degrees);
     void rotateY(float degrees);
     void rotateZ(float degrees);
-    void draw();
 
 private:
+    CreateInfo m_createInfo;
     CubeMap m_cubeMap;
-    glm::mat4 m_model;
+    Texture m_texture;
     Shader m_shaderCube;
     Mesh m_mesh;
-    Texture m_texture;
+    glm::mat4 m_model;
 };

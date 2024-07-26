@@ -1,8 +1,9 @@
 #pragma once
 
 #include <Nest.hpp>
-#define SPHERE1
-#ifdef SPHERE1
+#include "Figure.hpp"
+#include <filesystem>
+
 struct SphereVertex {
     // position
     glm::vec3 Position;
@@ -35,23 +36,17 @@ struct SphereVertex {
         , TexCoords(aTexCoordX, aTexCoordY)
         , Normal(aNormalX, aNormalY, aNormalZ) {};
 };
-#else
-struct SphereVertex {
-    glm::vec3 pos;
 
-    SphereVertex(float x, float y, float z)
-        : pos(x, y, z) {}
-};
-#endif
-
-class Sphere {
+class Sphere : public Figure {
 public:
-    void init(glm::vec3 position);
-    void draw();
+    void init(const CreateInfo &createInfo) override;
+    void draw(double deltaTime) override;
 
 private:
-    int m_lats, m_longs;
-    Mesh m_mesh;
+    CreateInfo m_createInfo;
+    CubeMap m_cubeMap;
+    Texture m_texture;
     Shader m_sphereShader;
+    Mesh m_mesh;
     glm::mat4 m_model;
 };

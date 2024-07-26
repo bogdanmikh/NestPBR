@@ -26,8 +26,31 @@ void NestPBR::start() {
         "Textures/skybox/blur/nz.png"
     };
     m_skyComponent.init(skyTextureAssetNotBlur);
-    m_cube.init(glm::vec3(0., 0., 0.), "Textures/Dubil.png", skyTextureAssetNotBlur);
-    m_sphere.init(glm::vec3(0., 0., 0.));
+
+    CreateInfo cubeCreateInfo;
+    cubeCreateInfo.position = glm::vec3(0., 0., 0.);
+    cubeCreateInfo.pathToVertexShader = "Shaders/vstCube.glsl";
+    cubeCreateInfo.pathToFragmentShader = "Shaders/fstCube.glsl";
+    cubeCreateInfo.useTexture = true;
+    cubeCreateInfo.pathToTexture = "Textures/Dubil.png";
+    cubeCreateInfo.useCubeMap = true;
+    cubeCreateInfo.skyTextureAsset = skyTextureAssetNotBlur;
+    cubeCreateInfo.nameTexture = "iTexture";
+    cubeCreateInfo.nameCubeMap = "iSky";
+    m_cube.init(cubeCreateInfo);
+
+    CreateInfo sphereCreateInfo;
+    sphereCreateInfo.position = glm::vec3(4., 0., 0.);
+    sphereCreateInfo.pathToVertexShader = "Shaders/vstSphere.glsl";
+    sphereCreateInfo.pathToFragmentShader = "Shaders/fstSphere.glsl";
+    sphereCreateInfo.useTexture = false;
+//    sphereCreateInfo.pathToTexture = "Textures/Dubil.png";
+    sphereCreateInfo.useCubeMap = true;
+    sphereCreateInfo.skyTextureAsset = skyTextureAssetNotBlur;
+//    cubeCreateInfo.nameTexture = "iTexture";
+    sphereCreateInfo.nameCubeMap = "iSky";
+
+    m_sphere.init(sphereCreateInfo);
     m_cameraMove.init();
 }
 
@@ -42,8 +65,8 @@ void NestPBR::update(double deltaTime) {
     m_cameraMove.update(deltaTime);
     m_skyComponent.draw();
     m_cube.rotateZ(0.5);
-    //    m_cube.rotateY(0.5);
-//    m_cube.draw();
-    m_sphere.draw();
+    m_cube.rotateY(0.5);
+    m_cube.draw(deltaTime);
+    m_sphere.draw(deltaTime);
     Renderer::checkForErrors();
 }
