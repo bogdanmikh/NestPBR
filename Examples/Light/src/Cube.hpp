@@ -6,11 +6,29 @@
 
 #include <Nest.hpp>
 
-struct MyVertex {
-    glm::vec3 pos;
+struct VertexCube {
+    // position
+    glm::vec3 Position;
+    // texCoords
+    glm::vec2 TexCoords;
+    // normal
+    glm::vec3 Normal;
 
-    MyVertex(float x, float y, float z)
-        : pos(x, y, z) {}
+    VertexCube()
+        : Position(0, 0, 0)
+        , TexCoords(0, 0)
+        , Normal(0, 0, 0) {};
+
+    VertexCube(glm::vec3 aPosition, glm::vec2 aTexCoord, glm::vec3 aNormal)
+        : Position(aPosition)
+        , TexCoords(aTexCoord)
+        , Normal(aNormal) {};
+
+    VertexCube(float x, float y, float z, float aTexCoordX, float aTexCoordY,
+               float aNormalX, float aNormalY, float aNormalZ)
+        : Position(x, y, z)
+        , TexCoords(aTexCoordX, aTexCoordY)
+        , Normal(aNormalX, aNormalY, aNormalZ) {};
 };
 
 class Cube {
