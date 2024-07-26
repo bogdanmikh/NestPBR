@@ -9,7 +9,16 @@ Settings Sphere::m_settings;
 void Sphere::init(const CreateInfo &createInfo) {
     m_settings.countSpheres++;
     m_createInfo = createInfo;
-    m_sphereShader.create(m_createInfo.pathToVertexShader.c_str(), m_createInfo.pathToFragmentShader.c_str());
+    if (std::filesystem::exists(m_createInfo.pathToGeometryShader)) {
+        m_sphereShader.create(
+            m_createInfo.pathToVertexShader.c_str(), m_createInfo.pathToFragmentShader.c_str()
+            , m_createInfo.pathToGeometryShader.c_str()
+        );
+    } else {
+        m_sphereShader.create(
+            m_createInfo.pathToVertexShader.c_str(), m_createInfo.pathToFragmentShader.c_str()
+        );
+    }
     m_model = glm::mat4(1);
     m_model = glm::translate(m_model, m_createInfo.position);
     std::vector<SphereVertex> vertices;

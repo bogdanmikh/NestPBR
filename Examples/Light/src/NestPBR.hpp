@@ -18,8 +18,6 @@ private:
     glm::vec2 m_lastViewportSize;
     SkyComponent m_skyComponent;
     Cube m_cube;
-    Sphere m_sphere1;
-    Sphere m_sphere2;
-    Sphere m_sphere3;
+    std::vector<Sphere> m_spheres;
     CameraMove m_cameraMove;
 };

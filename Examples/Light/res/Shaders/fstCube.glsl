@@ -15,12 +15,13 @@ uniform samplerCube iSky;
 
 out vec4 fragColor;
 
-float metalic = 0.5;
+float metalic = 0.3;
 
 void main() {
     vec2 st = gl_FragCoord.xy / iResolution;
     vec3 I = normalize(Position - cameraPos);
     vec3 R = reflect(I, normalize(Normal));
     vec3 color = mix(texture(iTexture, TexCoord).rgb, texture(iSky, R).rgb, metalic);
+//    fragColor = vec4(1., 0., 1., 1.);
     fragColor = vec4(color, 1.0);
 }

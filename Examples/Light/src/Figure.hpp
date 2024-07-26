@@ -12,6 +12,7 @@ struct CreateInfo {
     std::array<std::string, 6> skyTextureAsset;
     std::filesystem::path pathToVertexShader;
     std::filesystem::path pathToFragmentShader;
+    std::filesystem::path pathToGeometryShader;
     std::string nameTexture;
     std::string nameCubeMap;
 };

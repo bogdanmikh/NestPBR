@@ -23,7 +23,7 @@ Application::Application()
     , timeMillis() {
     Logger::init();
     window = new Window;
-    window->init("Light", 1200, 800, false);
+    window->init("Light", 800, 600, false);
 
     camera = new Camera;
     camera->setFieldOfView(glm::radians(60.f));

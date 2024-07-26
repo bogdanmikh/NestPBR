@@ -5,8 +5,16 @@ void Cube::init(const CreateInfo& createInfo) {
     m_createInfo = createInfo;
     m_model = glm::mat4(1);
     m_model = glm::translate(m_model, m_createInfo.position);
-    m_shaderCube.create(createInfo.pathToVertexShader.c_str(), createInfo.pathToFragmentShader.c_str());
-
+    if (std::filesystem::exists(m_createInfo.pathToGeometryShader)) {
+        m_shaderCube.create(
+            m_createInfo.pathToVertexShader.c_str(), m_createInfo.pathToFragmentShader.c_str()
+                                                         , m_createInfo.pathToGeometryShader.c_str()
+        );
+    } else {
+        m_shaderCube.create(
+            m_createInfo.pathToVertexShader.c_str(), m_createInfo.pathToFragmentShader.c_str()
+        );
+    }
     // clang-format off
     VertexCube vertices[24] = {
         // Front face
@@ -85,6 +93,7 @@ void Cube::draw(double deltaTime) {
     auto camera = Application::getInstance()->getCamera();
     m_shaderCube.use();
     m_shaderCube.setFloat("iTime", Application::getInstance()->getWindow()->getTime());
+    m_shaderCube.setFloat("time", Application::getInstance()->getWindow()->getTime());
     m_shaderCube.setVec2("iMouse", Events::getCursorPos());
     m_shaderCube.setVec2("iResolution", Application::getInstance()->getWindow()->getSize());
     m_shaderCube.setMat4("u_model", m_model);

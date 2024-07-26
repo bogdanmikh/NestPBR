@@ -31,9 +31,9 @@ void NestPBR::start() {
     cubeCreateInfo.position = glm::vec3(0., 0., 0.);
     cubeCreateInfo.pathToVertexShader = "Shaders/vstCube.glsl";
     cubeCreateInfo.pathToFragmentShader = "Shaders/fstCube.glsl";
+//    cubeCreateInfo.pathToGeometryShader = "Shaders/gstCube.glsl";
     cubeCreateInfo.useTexture = true;
-//    cubeCreateInfo.pathToTexture = "Textures/Dubil.png";
-    cubeCreateInfo.pathToTexture = "Textures/rust.jpg";
+    cubeCreateInfo.pathToTexture = "Textures/Dubil.png";
     cubeCreateInfo.useCubeMap = true;
     cubeCreateInfo.skyTextureAsset = skyTextureAssetNotBlur;
     cubeCreateInfo.nameTexture = "iTexture";
@@ -50,15 +50,16 @@ void NestPBR::start() {
     sphereCreateInfo.skyTextureAsset = skyTextureAssetNotBlur;
     sphereCreateInfo.nameTexture = "iTexture";
     sphereCreateInfo.nameCubeMap = "iSky";
-    m_sphere1.init(sphereCreateInfo);
+    m_spheres.resize(3);
+    m_spheres[0].init(sphereCreateInfo);
 
     sphereCreateInfo.position = glm::vec3(6., 0., 0.);
     sphereCreateInfo.pathToTexture = "Textures/rust.jpg";
-    m_sphere2.init(sphereCreateInfo);
+    m_spheres[1].init(sphereCreateInfo);
 
     sphereCreateInfo.position = glm::vec3(8., 0., 0.);
     sphereCreateInfo.pathToTexture = "Textures/scratch.jpg";
-    m_sphere3.init(sphereCreateInfo);
+    m_spheres[2].init(sphereCreateInfo);
 
     m_cameraMove.init();
 }
@@ -79,8 +80,8 @@ void NestPBR::update(double deltaTime) {
 
     // spheres
     Sphere::drawSettings();
-    m_sphere1.draw(deltaTime);
-    m_sphere2.draw(deltaTime);
-    m_sphere3.draw(deltaTime);
+    for (auto &sphere : m_spheres) {
+        sphere.draw(deltaTime);
+    }
     Renderer::checkForErrors();
 }
