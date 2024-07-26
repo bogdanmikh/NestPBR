@@ -3,6 +3,7 @@
 #include "SkyComponent.hpp"
 #include "SkyComponent.hpp"
 #include "Cube.hpp"
+#include "Sphere.hpp"
 #include "CameraMove.hpp"
 
 #include <Nest.hpp>
@@ -17,5 +18,6 @@ private:
     glm::vec2 m_lastViewportSize;
     SkyComponent m_skyComponent;
     Cube m_cube;
+    Sphere m_sphere;
     CameraMove m_cameraMove;
 };

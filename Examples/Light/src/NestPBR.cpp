@@ -27,6 +27,7 @@ void NestPBR::start() {
     };
     m_skyComponent.init(skyTextureAssetNotBlur);
     m_cube.init(glm::vec3(0., 0., 0.), "Textures/Dubil.png", skyTextureAssetNotBlur);
+    m_sphere.init(glm::vec3(0., 0., 0.));
     m_cameraMove.init();
 }
 
@@ -42,6 +43,7 @@ void NestPBR::update(double deltaTime) {
     m_skyComponent.draw();
     m_cube.rotateZ(0.5);
     //    m_cube.rotateY(0.5);
-    m_cube.draw();
+//    m_cube.draw();
+    m_sphere.draw();
     Renderer::checkForErrors();
 }

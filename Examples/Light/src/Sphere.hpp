@@ -1,12 +1,9 @@
 #pragma once
 
-#include <cstdint>
-#include <filesystem>
-#include <glm/glm.hpp>
-
 #include <Nest.hpp>
-
-struct VertexCube {
+#define SPHERE1
+#ifdef SPHERE1
+struct SphereVertex {
     // position
     glm::vec3 Position;
     // texCoords
@@ -14,17 +11,17 @@ struct VertexCube {
     // normal
     glm::vec3 Normal;
 
-    VertexCube()
+    SphereVertex()
         : Position(0, 0, 0)
         , TexCoords(0, 0)
         , Normal(0, 0, 0) {};
 
-    VertexCube(glm::vec3 aPosition, glm::vec2 aTexCoord, glm::vec3 aNormal)
+    SphereVertex(glm::vec3 aPosition, glm::vec2 aTexCoord, glm::vec3 aNormal)
         : Position(aPosition)
         , TexCoords(aTexCoord)
         , Normal(aNormal) {};
 
-    VertexCube(
+    SphereVertex(
         float x,
         float y,
         float z,
@@ -38,23 +35,23 @@ struct VertexCube {
         , TexCoords(aTexCoordX, aTexCoordY)
         , Normal(aNormalX, aNormalY, aNormalZ) {};
 };
+#else
+struct SphereVertex {
+    glm::vec3 pos;
 
-class Cube {
+    SphereVertex(float x, float y, float z)
+        : pos(x, y, z) {}
+};
+#endif
+
+class Sphere {
 public:
-    void init(
-        const glm::vec3 &position,
-        const std::filesystem::path &pathToTexture,
-        const std::array<std::string, 6> &skyTextureAsset
-    );
-    void rotateX(float degrees);
-    void rotateY(float degrees);
-    void rotateZ(float degrees);
+    void init(glm::vec3 position);
     void draw();
 
 private:
-    CubeMap m_cubeMap;
-    glm::mat4 m_model;
-    Shader m_shaderCube;
+    int m_lats, m_longs;
     Mesh m_mesh;
-    Texture m_texture;
+    Shader m_sphereShader;
+    glm::mat4 m_model;
 };

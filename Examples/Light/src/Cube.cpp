@@ -1,18 +1,13 @@
 #include "Cube.hpp"
 #include "glm/ext/matrix_transform.hpp"
 
-Cube::~Cube() {
-    delete m_shaderCube;
-}
-
 void Cube::init(
     const glm::vec3 &position,
     const std::filesystem::path &pathToTexture,
     const std::array<std::string, 6> &skyTextureAsset
 ) {
     m_model = glm::mat4(1);
-    m_shaderCube = new Shader;
-    m_shaderCube->create("Shaders/vstCube.glsl", "Shaders/fstCube.glsl");
+    m_shaderCube.create("Shaders/vstCube.glsl", "Shaders/fstCube.glsl");
 
     // clang-format off
     VertexCube vertices[24] = {
@@ -88,17 +83,17 @@ void Cube::rotateZ(float degrees) {
 
 void Cube::draw() {
     auto camera = Application::getInstance()->getCamera();
-    m_shaderCube->use();
-    m_shaderCube->setFloat("iTime", Application::getInstance()->getWindow()->getTime());
-    m_shaderCube->setVec2("iMouse", Events::getCursorPos());
-    m_shaderCube->setVec2("iResolution", Application::getInstance()->getWindow()->getSize());
-    m_shaderCube->setMat4("u_model", m_model);
-    m_shaderCube->setMat4("u_view", camera->getViewMatrix());
-    m_shaderCube->setMat4("u_projection", camera->getProjectionMatrix());
-    m_shaderCube->setVec3("cameraPos", camera->getPosition());
+    m_shaderCube.use();
+    m_shaderCube.setFloat("iTime", Application::getInstance()->getWindow()->getTime());
+    m_shaderCube.setVec2("iMouse", Events::getCursorPos());
+    m_shaderCube.setVec2("iResolution", Application::getInstance()->getWindow()->getSize());
+    m_shaderCube.setMat4("u_model", m_model);
+    m_shaderCube.setMat4("u_view", camera->getViewMatrix());
+    m_shaderCube.setMat4("u_projection", camera->getProjectionMatrix());
+    m_shaderCube.setVec3("cameraPos", camera->getPosition());
     m_texture.bind(0);
-    m_shaderCube->setInt("iTexture", 0);
+    m_shaderCube.setInt("iTexture", 0);
     m_cubeMap.bind(1);
-    m_shaderCube->setInt("iSky", 1);
+    m_shaderCube.setInt("iSky", 1);
     m_mesh.draw();
 }
