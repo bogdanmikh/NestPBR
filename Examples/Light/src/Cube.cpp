@@ -1,6 +1,12 @@
 #include "Cube.hpp"
 #include "glm/ext/matrix_transform.hpp"
 
+Cube::~Cube() {
+    m_texture.destroy();
+    m_cubeMap.destroy();
+    m_shaderCube.destroy();
+}
+
 void Cube::init(const CreateInfo& createInfo) {
     m_createInfo = createInfo;
     m_model = glm::mat4(1);

@@ -2,8 +2,6 @@
 #include "Nest/Logger/Logger.hpp"
 #include "glad/glad.h"
 
-#include <iostream>
-
 const char *getGLErrorStr(GLenum err) {
     switch (err) {
         case GL_NO_ERROR:

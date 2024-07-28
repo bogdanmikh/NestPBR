@@ -44,8 +44,11 @@ struct Settings {
 
 class Sphere : public Figure {
 public:
+    ~Sphere();
     void init(const CreateInfo &createInfo) override;
     void draw(double deltaTime) override;
+    void translate(glm::vec3 v);
+    void translate(float x, float y, float z);
     static void drawSettings();
 private:
     static Settings m_settings;
@@ -55,4 +58,5 @@ private:
     Shader m_sphereShader;
     Mesh m_mesh;
     glm::mat4 m_model;
+    glm::vec3 m_position;
 };

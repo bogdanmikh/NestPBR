@@ -40,6 +40,7 @@ public:
 
 private:
     Application();
+    void drawProperties() const;
     static Application *s_instance;
 
     Window *window;
@@ -50,6 +51,6 @@ private:
     int maximumFps = 60;
     uint64_t deltaTimeMillis = 0;
     int thisSecondFramesCount = 0;
-    uint64_t timeMillis;
+    uint64_t timeMillis = 0;
     uint64_t oneSecondTimeCount = 0;
 };

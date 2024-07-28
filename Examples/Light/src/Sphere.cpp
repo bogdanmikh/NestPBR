@@ -6,9 +6,18 @@
 
 Settings Sphere::m_settings;
 
+Sphere::~Sphere() {
+    m_texture.destroy();
+    m_cubeMap.destroy();
+    m_sphereShader.destroy();
+}
+
 void Sphere::init(const CreateInfo &createInfo) {
-    m_settings.countSpheres++;
     m_createInfo = createInfo;
+    m_model = glm::mat4(1);
+    m_position = m_createInfo.position;
+    m_model = glm::translate(m_model, m_position);
+    m_settings.countSpheres++;
     if (std::filesystem::exists(m_createInfo.pathToGeometryShader)) {
         m_sphereShader.create(
             m_createInfo.pathToVertexShader.c_str(), m_createInfo.pathToFragmentShader.c_str()
@@ -19,8 +28,6 @@ void Sphere::init(const CreateInfo &createInfo) {
             m_createInfo.pathToVertexShader.c_str(), m_createInfo.pathToFragmentShader.c_str()
         );
     }
-    m_model = glm::mat4(1);
-    m_model = glm::translate(m_model, m_createInfo.position);
     std::vector<SphereVertex> vertices;
     std::vector<uint32_t> indices;
     int sectorCount = 36, stackCount = 18;
@@ -101,6 +108,16 @@ void Sphere::drawSettings() {
     ImGui::Text("Count sphere: %d", m_settings.countSpheres);
     ImGui::SliderFloat("Value of metalic", &m_settings.metallic, 0.0, 1.0);
     ImGui::End();
+}
+
+void Sphere::translate(glm::vec3 v) {
+    m_position += v;
+    LOG_INFO("POS: X {}, Y {}, Z {}", m_position.x, m_position.y, m_position.z);
+    m_model = glm::translate(m_model, m_position);
+}
+
+void Sphere::translate(float x, float y, float z) {
+    translate({x, y, z});
 }
 
 void Sphere::draw(double deltaTime) {

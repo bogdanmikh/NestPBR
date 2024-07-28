@@ -80,6 +80,7 @@ void NestPBR::update(double deltaTime) {
 
     // spheres
     Sphere::drawSettings();
+    float speed = 0.00001;
     for (auto &sphere : m_spheres) {
         sphere.draw(deltaTime);
     }

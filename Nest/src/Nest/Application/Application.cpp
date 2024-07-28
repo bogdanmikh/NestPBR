@@ -32,12 +32,29 @@ Application::Application()
     ImGui_Init(window->getNativeHandle());
     Renderer::init();
     Renderer::setClearColor(.235f, .235f, .235f, 1.0f);
+    timeMillis = getMillis();
 }
 
 Application::~Application() {
     ImGui_Shutdown();
     delete camera;
     delete window;
+}
+
+void Application::drawProperties() const {
+    ImGui::Begin("Stats");
+    ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.0f, 1.0f, 0.0f, 1.0f));
+    ImGui::Text("FPS: %d", fps);
+    ImGui::PopStyleColor();
+    ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.0f, 0.9f, 0.0f, 1.0f));
+    ImGui::Text(
+        "X: %f, Y: %f, Z: %f",
+        camera->getPosition().x,
+        camera->getPosition().y,
+        camera->getPosition().z
+    );
+    ImGui::PopStyleColor();
+    ImGui::End();
 }
 
 void Application::loop() {
@@ -76,19 +93,7 @@ void Application::loop() {
             deltaTime = std::min(deltaTime, 10.);
             currentLayer->update(deltaTime);
         }
-        ImGui::Begin("Stats");
-        ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.0f, 1.0f, 0.0f, 1.0f));
-        ImGui::Text("FPS: %d", fps);
-        ImGui::PopStyleColor();
-        ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.0f, 0.9f, 0.0f, 1.0f));
-        ImGui::Text(
-            "X: %f, Y: %f, Z: %f",
-            camera->getPosition().x,
-            camera->getPosition().y,
-            camera->getPosition().z
-        );
-        ImGui::PopStyleColor();
-        ImGui::End();
+        drawProperties();
         ImGui_EndFrame();
 
         Events::resetDropPaths();

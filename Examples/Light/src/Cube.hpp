@@ -41,12 +41,12 @@ struct VertexCube {
 
 class Cube : public Figure {
 public:
+    ~Cube();
     void init(const CreateInfo &createInfo) override;
     void draw(double deltaTime) override;
     void rotateX(float degrees);
     void rotateY(float degrees);
     void rotateZ(float degrees);
-
 private:
     CreateInfo m_createInfo;
     CubeMap m_cubeMap;

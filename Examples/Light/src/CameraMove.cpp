@@ -16,8 +16,9 @@ void CameraMove::update(double deltaTime) {
     } else {
         cameraSpeed = 20.f;
     }
-
-    LOG_INFO("Speed: {}, Delta: {}", cameraSpeed, deltaTime);
+    if (deltaTime >= 1) {
+        LOG_ERROR("Delta: {}", deltaTime);
+    }
     if (Events::isKeyPressed(Key::W)) {
         camera->translateLocal(0., 0., cameraSpeed * deltaTime);
     }
