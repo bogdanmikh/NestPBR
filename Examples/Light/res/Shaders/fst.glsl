@@ -29,8 +29,14 @@ void main() {
     vec3 reflectedDirection = vec3(uv - 0.7, sin(iTime) * 0.5 + 1.);
     reflectedDirection = vec3(flip(reflectedDirection), reflectedDirection.z);
 
-    vec2 m = gl_FragCoord.xy / iMouse;
+    vec2 mousePos = iMouse * 2 / iResolution;
+    float maxL = 0.1;
+    float shadow = 1.;
+    if (distance(mousePos, TexCoord) * pebbleHeight <= maxL) {
+        shadow = 1. * (1. - pebbleHeight);
+    }
+
     vec4 skyColor = texture(iSky, reflectedDirection);
     vec4 color = vec4(pebbleHeight, pebbleHeight, pebbleHeight, 1.0);
-    fragColor = mix(color, skyColor, 0.8);
+    fragColor = mix(color, skyColor, 0.8) * shadow;
 }

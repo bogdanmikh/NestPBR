@@ -7,7 +7,7 @@ class Logger {
 public:
     static void init() {
         spdlog::set_pattern("%^[%T] %n: %v%$");
-        s_logger = spdlog::stdout_color_mt("VIVO");
+        s_logger = spdlog::stdout_color_mt("NEST");
         s_logger->set_level(spdlog::level::trace);
     }
     inline static std::shared_ptr<spdlog::logger> &getLogger() {

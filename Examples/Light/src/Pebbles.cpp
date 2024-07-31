@@ -55,8 +55,13 @@ void Pebbles::update(double deltaTime) {
     }
     m_shaderRectangle.use();
     m_shaderRectangle.setFloat("iTime", Application::getInstance()->getWindow()->getTime());
-    m_shaderRectangle.setVec2("iMouse", Events::getCursorPos());
-    m_shaderRectangle.setVec2("iResolution", Application::getInstance()->getWindow()->getSize());
+    auto resolution = Application::getInstance()->getWindow()->getSize();
+    auto mousePos = Events::getCursorPos();
+    m_shaderRectangle.setVec2("iMouse", mousePos);
+    m_shaderRectangle.setVec2("iResolution", resolution);
+    LOG_INFO("Resolution x: {}, y: {}", resolution.x, resolution.y);
+    LOG_INFO("Mouse Pos x: {}, y: {}", mousePos.x, mousePos.y);
+    LOG_INFO("X: {}, Y: {}", mousePos.x / resolution.x,  mousePos.y / resolution.y);
     m_pebblesTexture.bind(0);
     m_shaderRectangle.setInt("texture1", 0);
     m_skyTexture.bind(1);
