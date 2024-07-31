@@ -31,9 +31,9 @@ void main() {
 
     vec2 mousePos = iMouse * 2 / iResolution;
     float maxL = 0.1;
-    float shadow = 1.;
+    vec4 shadow = vec4(vec3(0.), 1.);
     if (distance(mousePos, TexCoord) * pebbleHeight <= maxL) {
-        shadow = 1. * (1. - pebbleHeight);
+        shadow = vec4(vec3(1. * (1. - pebbleHeight)), 1.);
     }
 
     vec4 skyColor = texture(iSky, reflectedDirection);
